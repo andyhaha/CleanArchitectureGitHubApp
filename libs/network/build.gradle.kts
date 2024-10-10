@@ -43,4 +43,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     api(libs.squareup.retrofit)
+    api(project(":libs:common"))
 }

@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
+//    alias(libs.plugins.squareup.moshi.codegen)
 }
 
 android {
@@ -75,5 +76,6 @@ dependencies {
     ksp(libs.hilt.compiler)
     // only ksp(libs.hilt.compiler) is needed!
 //    implementation(libs.dagger.hilt.compiler)
+    ksp(libs.squareup.moshi.codegen)
     implementation(libs.hilt.android)
 }
