@@ -1,6 +1,7 @@
 package com.andy.network.di
 
 import com.andy.network.ApiResultAdapterFactory
+import com.andy.network.AuthorizationHeaderInterceptor
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -24,6 +25,7 @@ object NetworkModule {
         }
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(AuthorizationHeaderInterceptor())
             .build()
     }
 
