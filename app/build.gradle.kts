@@ -77,4 +77,5 @@ dependencies {
 //    implementation(libs.dagger.hilt.compiler)
     ksp(libs.squareup.moshi.codegen)
     implementation(libs.hilt.android)
+    implementation(project(":libs:network"))
 }
