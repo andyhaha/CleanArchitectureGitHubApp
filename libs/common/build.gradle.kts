@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -42,4 +43,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     api(libs.squareup.moshi)
+    ksp(libs.squareup.moshi.codegen)
 }
