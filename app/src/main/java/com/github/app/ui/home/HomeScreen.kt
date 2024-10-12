@@ -9,12 +9,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.github.app.domain.model.User
 
 @Composable
 fun HomeScreen(
+    navController: NavController,
     searchHistoryViewModel: SearchHistoryViewModel = hiltViewModel(),
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -38,12 +41,13 @@ fun HomeScreen(
         }
     ) { innerPadding ->
         val items: LazyPagingItems<User> = homeViewModel.searchedUsers.collectAsLazyPagingItems()
-        HomeContent(innerPadding, items)
+        HomeContent(navController, innerPadding, items)
     }
 }
 
 @Preview
 @Composable
 fun PreviewHomeScreen() {
-    HomeScreen()
+    val navController = rememberNavController()
+    HomeScreen(navController = navController)
 }

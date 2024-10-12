@@ -1,11 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-//    kotlin("android")
-//    kotlin("kapt")
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
+    kotlin("plugin.serialization") version "2.0.21"
 }
 
 android {
@@ -92,6 +91,9 @@ dependencies {
     implementation(libs.androidx.paging.common.android)
     implementation(libs.coil)
     implementation(libs.coil.compose)
+    // navigation new version
+    implementation (libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 
     // network
     implementation(project(":libs:network"))

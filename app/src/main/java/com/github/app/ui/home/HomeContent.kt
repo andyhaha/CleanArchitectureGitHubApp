@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.github.app.domain.model.User
@@ -18,6 +19,7 @@ import com.github.app.ui.component.NoMoreDataItem
 
 @Composable
 fun HomeContent(
+    navController: NavController,
     innerPadding: PaddingValues = PaddingValues(),
     items: LazyPagingItems<User>
 ) {
@@ -41,7 +43,7 @@ fun HomeContent(
         items(count = items.itemCount) { index ->
             val item = items[index]
             item?.let {
-                UserItem(it)
+                UserItem(navController, it)
             }
         }
         item {
@@ -64,8 +66,6 @@ fun HomeContent(
         }
     }
 }
-
-
 
 @Preview(showBackground = true)
 @Composable

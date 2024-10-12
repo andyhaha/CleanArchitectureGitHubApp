@@ -11,16 +11,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.github.app.domain.model.User
+import com.github.app.navigation.Screen
 
 @Composable
-fun UserItem(user: User) {
+fun UserItem(navController: NavController, user: User) {
     ListItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-
+                navController.navigate(Screen.Detail(user.name))
             },
         headlineContent = { Text(text = user.name) },
         leadingContent = {
