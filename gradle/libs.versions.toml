@@ -1,5 +1,6 @@
 [versions]
 agp = "8.7.0"
+coil = "2.7.0"
 kotlin = "2.0.20"
 coreKtx = "1.13.1"
 ksp = "2.0.20-1.0.25"
@@ -13,6 +14,7 @@ appcompat = "1.7.0"
 material = "1.12.0"
 
 moshi = "1.15.1"
+pagingCompose = "3.3.2"
 retrofit = "2.11.0"
 okhttp = "4.12.0"
 okhttp-bom = "4.12.0"
@@ -22,9 +24,13 @@ hilt = "2.52"
 hiltExt = "1.2.0"
 androidxHiltNavigationCompose = "1.2.0"
 room = "2.6.1"
+paging-version = "3.3.2"
+paging-version-compose = "3.3.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -63,6 +69,10 @@ room-common = { group = "androidx.room", name = "room-common", version.ref = "ro
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging-version-compose" }
+androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging-version" }
+androidx-paging-common-android = { group = "androidx.paging", name = "paging-common-android", version.ref = "paging-version" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -86,6 +86,12 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     // material icons
     implementation(libs.androidx.compose.material.iconsExtended)
+    // paging
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.common.android)
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
 
     // network
     implementation(project(":libs:network"))

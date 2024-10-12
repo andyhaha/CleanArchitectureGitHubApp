@@ -16,7 +16,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.searchUserRepositories()
         setContent {
             GitHubAppTheme {
                 HomeScreen()

@@ -1,5 +1,6 @@
 package com.andy.network
 
+import android.util.Log
 import com.andy.network.data.ApiResult
 import okhttp3.Request
 import okio.Timeout
@@ -7,11 +8,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-internal class ApiResultCall<T> constructor(
+internal class ApiResultCall<T>(
     private val callDelegate: Call<T>,
 ) : Call<ApiResult<T>> {
 
-    @Suppress("detekt.MagicNumber")
     override fun enqueue(callback: Callback<ApiResult<T>>) = callDelegate.enqueue(
         object : Callback<T> {
             override fun onResponse(call: Call<T>, response: Response<T>) {
@@ -25,27 +25,10 @@ internal class ApiResultCall<T> constructor(
                         }
 
                         else -> {
-                            callback.onResponse(
-                                this@ApiResultCall,
-                                Response.success(
-                                    ApiResult.Error(
-                                        response.code(),
-                                        response.message()
-                                    )
-                                ),
+                            Log.e(
+                                "ApiResultCall", "error code1111111 " +
+                                        "= ${response.code()}, message = response"
                             )
-                        }
-                    }
-
-                    when (response.code()) {
-                        in 200..208 -> {
-                            callback.onResponse(
-                                this@ApiResultCall,
-                                Response.success(ApiResult.Success(it))
-                            )
-                        }
-
-                        in 400..409 -> {
                             callback.onResponse(
                                 this@ApiResultCall,
                                 Response.success(
@@ -62,7 +45,7 @@ internal class ApiResultCall<T> constructor(
                     Response.success(
                         ApiResult.Error(
                             response.code(),
-                            "message"
+                            response.message()
                         )
                     )
                 )

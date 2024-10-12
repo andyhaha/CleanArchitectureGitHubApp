@@ -1,4 +1,6 @@
 package com.github.app.domain.model
 
-class User {
-}
+data class User(
+    val name: String,
+    val avatarUrl: String
+)

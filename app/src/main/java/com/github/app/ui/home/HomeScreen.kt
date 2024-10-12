@@ -9,13 +9,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.github.app.domain.model.User
 
 @Composable
 fun HomeScreen(
-    viewModel: SearchHistoryViewModel = hiltViewModel()
+    searchHistoryViewModel: SearchHistoryViewModel = hiltViewModel(),
+    homeViewModel: HomeViewModel = hiltViewModel()
 ) {
     var searchText by remember { mutableStateOf("") }
-    val historyItemsState: SearchUiState by viewModel.searchHistoryItems.collectAsStateWithLifecycle()
+    val historyItemsState: SearchUiState by searchHistoryViewModel.searchHistoryItems.collectAsStateWithLifecycle()
     Scaffold(
         topBar = {
             HomeSearchBar(
@@ -23,16 +27,18 @@ fun HomeScreen(
                 onSearch = {
                     searchText = it.content
                     if (searchText.isNotEmpty()) {
-                        viewModel.addHistoryItem(searchText)
+                        searchHistoryViewModel.addHistoryItem(searchText)
+                        homeViewModel.searchUserRepositories(searchText)
                     }
                 },
                 delete = {
-                    viewModel.deleteHistoryItem(it)
+                    searchHistoryViewModel.deleteHistoryItem(it)
                 }
             )
         }
     ) { innerPadding ->
-        HomeContent(innerPadding, searchText)
+        val items: LazyPagingItems<User> = homeViewModel.searchedUsers.collectAsLazyPagingItems()
+        HomeContent(innerPadding, items)
     }
 }
 
