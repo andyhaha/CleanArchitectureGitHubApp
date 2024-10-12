@@ -72,10 +72,21 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    ksp(libs.squareup.moshi.codegen)
     ksp(libs.hilt.compiler)
     // only ksp(libs.hilt.compiler) is needed!
 //    implementation(libs.dagger.hilt.compiler)
-    ksp(libs.squareup.moshi.codegen)
     implementation(libs.hilt.android)
+    // room
+    implementation(libs.room.common)
+    implementation(libs.room.ktx)
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    // navigation
+    implementation(libs.hilt.navigation.compose)
+    // material icons
+    implementation(libs.androidx.compose.material.iconsExtended)
+
+    // network
     implementation(project(":libs:network"))
 }

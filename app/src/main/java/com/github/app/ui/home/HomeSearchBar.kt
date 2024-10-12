@@ -22,10 +22,15 @@ import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.tooling.preview.Preview
+import com.github.app.domain.model.SearchItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeSearchBar(onSearch: (String) -> Unit) {
+fun HomeSearchBar(
+    searchUiState: SearchUiState = SearchUiState.Loading,
+    onSearch: (SearchItem) -> Unit = {},
+    delete: (SearchItem) -> Unit = {}
+) {
     var text by rememberSaveable { mutableStateOf("") }
     var expanded by rememberSaveable { mutableStateOf(false) }
     Box(
@@ -42,7 +47,7 @@ fun HomeSearchBar(onSearch: (String) -> Unit) {
                     onQueryChange = { text = it },
                     onSearch = {
                         expanded = false
-                        onSearch(it)
+                        onSearch(SearchItem(content = it))
                     },
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
@@ -53,7 +58,7 @@ fun HomeSearchBar(onSearch: (String) -> Unit) {
                             contentDescription = "search icon",
                             modifier = Modifier.clickable {
                                 expanded = false
-                                onSearch(text)
+                                onSearch(SearchItem(content = text))
                             }
                         )
                     },
@@ -64,6 +69,7 @@ fun HomeSearchBar(onSearch: (String) -> Unit) {
                                 contentDescription = "close icon",
                                 modifier = Modifier.clickable {
                                     expanded = false
+                                    text = ""
                                 }
                             )
                         }
@@ -73,11 +79,15 @@ fun HomeSearchBar(onSearch: (String) -> Unit) {
             expanded = expanded,
             onExpandedChange = { expanded = it },
         ) {
-            SearchHistory {
-                text = it
-                expanded = false
-                onSearch(text)
-            }
+            SearchHistory(
+                onItemClick = {
+                    text = it.content
+                    expanded = false
+                    onSearch(it)
+                },
+                delete = delete,
+                state = searchUiState
+            )
         }
     }
 }
@@ -85,5 +95,5 @@ fun HomeSearchBar(onSearch: (String) -> Unit) {
 @Preview
 @Composable
 fun PreviewHomeScreenBar() {
-    HomeSearchBar {  }
+    HomeSearchBar()
 }
