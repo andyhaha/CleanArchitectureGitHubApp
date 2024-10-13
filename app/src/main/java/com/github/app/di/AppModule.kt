@@ -1,8 +1,6 @@
 package com.github.app.di
 
 import com.github.app.data.remote.GitHubApiService
-import com.github.app.data.repository.GitHubUserRepository
-import com.github.app.domain.repository.HomeRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

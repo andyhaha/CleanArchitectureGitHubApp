@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.github.app.domain.model.User
+import com.github.app.domain.model.SimpleUser
 import com.github.app.ui.component.LoadError
 import com.github.app.ui.component.LoadNoData
 import com.github.app.ui.component.LoadingItem
@@ -21,7 +21,7 @@ import com.github.app.ui.component.NoMoreDataItem
 fun HomeContent(
     navController: NavController,
     innerPadding: PaddingValues = PaddingValues(),
-    items: LazyPagingItems<User>
+    items: LazyPagingItems<SimpleUser>
 ) {
     Log.d("HomeContent", "loadState = ${items.loadState}")
     if (items.itemCount == 0) {

@@ -10,16 +10,16 @@ import com.github.app.common.Constants
 import com.github.app.common.errorMessage
 import com.github.app.data.model.toDomainUser
 import com.github.app.data.remote.GitHubApiService
-import com.github.app.domain.model.User
+import com.github.app.domain.model.SimpleUser
 import retrofit2.HttpException
 import java.io.IOException
 
 class SearchPagingSource(
     private val apiService: GitHubApiService,
     private val query: String
-) : PagingSource<Int, User>() {
+) : PagingSource<Int, SimpleUser>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SimpleUser> {
         val page = params.key ?: 1
         return try {
             val result = apiService.searchUserRepositories(
@@ -63,7 +63,7 @@ class SearchPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, User>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, SimpleUser>): Int? {
         return state.anchorPosition?.let { position ->
             state.closestPageToPosition(position)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(position)?.nextKey?.minus(1)

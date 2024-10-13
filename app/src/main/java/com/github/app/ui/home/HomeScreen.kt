@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.github.app.domain.model.User
+import com.github.app.domain.model.SimpleUser
 
 @Composable
 fun HomeScreen(
@@ -40,7 +40,7 @@ fun HomeScreen(
             )
         }
     ) { innerPadding ->
-        val items: LazyPagingItems<User> = homeViewModel.searchedUsers.collectAsLazyPagingItems()
+        val items: LazyPagingItems<SimpleUser> = homeViewModel.searchedUsers.collectAsLazyPagingItems()
         HomeContent(navController, innerPadding, items)
     }
 }

@@ -51,7 +51,7 @@ fun HomeSearchBar(
                     },
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
-                    placeholder = { Text("Search") },
+                    placeholder = { Text("Search users") },
                     leadingIcon = {
                         Icon(
                             Icons.Default.Search,

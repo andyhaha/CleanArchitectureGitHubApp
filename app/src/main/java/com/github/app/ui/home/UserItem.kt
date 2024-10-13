@@ -13,21 +13,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.github.app.domain.model.User
+import com.github.app.domain.model.SimpleUser
 import com.github.app.navigation.Screen
 
 @Composable
-fun UserItem(navController: NavController, user: User) {
+fun UserItem(navController: NavController, simpleUser: SimpleUser) {
     ListItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                navController.navigate(Screen.Detail(user.name))
+                navController.navigate(Screen.Detail(simpleUser.name))
             },
-        headlineContent = { Text(text = user.name) },
+        headlineContent = { Text(text = simpleUser.name) },
         leadingContent = {
             AsyncImage(
-                model = user.avatarUrl,
+                model = simpleUser.avatarUrl,
                 contentDescription = "Net image",
                 modifier = Modifier
                     .size(50.dp)
