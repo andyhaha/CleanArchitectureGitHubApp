@@ -10,25 +10,15 @@ This is a GitHub user search application that allows users to search for GitHub 
 
 This project follows the **Clean Architecture** principles and adopts the **MVVM** (Model-View-ViewModel) architectural pattern to achieve better modularization and separation of concerns. By decoupling different business logic from UI logic, the project is easier to test and maintain.
 
-### Multi-Modules Development
+Here’s an overview of your project structure, following the style of your example:
 
-The project follows a **multi-modules** architecture for better maintainability, reusability, and separation of concerns. Below is an overview of the modules:
+## Modules Overview
 
-├── app               # Main Android application module
-├── feature
-│   ├── home          # Home feature module
-│   └── details       # Details feature module
-└── libs
-    ├── network       # Network module (Retrofit integration)
-    └── common        # Common utils library
-
-### Modules Breakdown:
-
-	•	app: The main Android app module. It serves as the entry point and orchestrates the various feature and library modules.
-	•	feature/home: Handles the home screen of the app, which likely displays a list of repositories or user profiles retrieved from the GitHub API.
-	•	feature/details: Displays detailed information for selected repositories or users from the home screen.
-	•	libs/network: A library module that manages network requests using Retrofit to interact with the GitHub API.
-	•	libs/common: Contains utility classes and helper methods that are shared across different modules (e.g., logging, string manipulations, view utilities).
+	•	:app - Main Android app module that coordinates feature and library modules.
+	•	:feature:home - Displays a list of GitHub users with the ability to search and store results locally using Room.
+	•	:feature:details - Shows detailed information about selected users, including their profile and repositories.
+	•	:libs:network - Manages network requests using Retrofit and Moshi for data serialization.
+	•	:libs:common - Kotlin-only module providing utility functions and common classes used throughout the app.
 
 ## Technologies Used
 
