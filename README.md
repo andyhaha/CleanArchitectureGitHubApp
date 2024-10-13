@@ -14,11 +14,13 @@ Here’s an overview of your project structure, following the style of your exam
 
 ## Modules Overview
 
-	•	:app - Main Android app module that coordinates feature and library modules.
-	•	:feature:home - Displays a list of GitHub users with the ability to search and store results locally using Room.
-	•	:feature:details - Shows detailed information about selected users, including their profile and repositories.
-	•	:libs:network - Manages network requests using Retrofit and Moshi for data serialization.
-	•	:libs:common - Kotlin-only module providing utility functions and common classes used throughout the app.
+The project is divided into several modules:
+
+- **:app** - Main Android app module that coordinates feature and library modules.
+- **:feature:home** - Displays a list of GitHub users with the ability to search and store results locally using Room.
+- **:feature:details** - Shows detailed information about selected users, including their profile and repositories.
+- **:libs:network** - Manages network requests using Retrofit and Moshi for data serialization.
+- **:libs:common** - Kotlin-only module providing utility functions and common classes used throughout the app.
 
 ## Technologies Used
 
@@ -34,16 +36,6 @@ This project utilizes the following technology stack:
 - **Moshi**: Used for parsing JSON data, enhancing the efficiency of data serialization and deserialization.
 - **Coil**: For image loading, offering smooth image processing and caching functionality.
 - **GitHub Authorize**: Uses GitHub OAuth for authorization, ensuring users can safely access and search GitHub data.
-
-## How to Run the Project
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/andyhaha/GitHubApp.git
-
-2.	Import the project into Android Studio.
-3.	Ensure you are using Kotlin version 1.5 or above and configure Gradle.
-4.	Run the application.
 
 Contributing
 
