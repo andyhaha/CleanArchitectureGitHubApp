@@ -10,11 +10,9 @@ This is a GitHub user search application that allows users to search for GitHub 
 
 This project follows the **Clean Architecture** principles and adopts the **MVVM** (Model-View-ViewModel) architectural pattern to achieve better modularization and separation of concerns. By decoupling different business logic from UI logic, the project is easier to test and maintain.
 
-### Main Modules
+### Multi-Modules Development
 
-- **Presentation**: Responsible for the user interface and user interactions, utilizing Jetpack Compose to implement a modern UI.
-- **Domain**: Contains business logic and rules, defining interfaces for the data layer to implement.
-- **Data**: Handles data retrieval and storage, using Retrofit for network requests and Room database for local data storage.
+The project is developed using **Android's multi-modules** approach, which allows for better separation of concerns and promotes reusability. Each module can focus on a specific feature or layer, making the codebase more organized and manageable.
 
 ## Technologies Used
 
