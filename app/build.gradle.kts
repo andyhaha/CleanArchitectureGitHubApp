@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.compose.compiler)
+    kotlin("plugin.serialization") version "2.0.21"
 }
 
 android {
@@ -66,4 +70,31 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    ksp(libs.squareup.moshi.codegen)
+    ksp(libs.hilt.compiler)
+    // only ksp(libs.hilt.compiler) is needed!
+//    implementation(libs.dagger.hilt.compiler)
+    implementation(libs.hilt.android)
+    // room
+    implementation(libs.room.common)
+    implementation(libs.room.ktx)
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    // navigation
+    implementation(libs.hilt.navigation.compose)
+    // material icons
+    implementation(libs.androidx.compose.material.iconsExtended)
+    // paging
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.common.android)
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+    // navigation new version
+    implementation (libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
+
+    // network
+    implementation(project(":libs:network"))
 }
