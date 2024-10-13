@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.google.dagger.hilt)
+    alias(libs.plugins.google.dagger.hilt.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
     kotlin("plugin.serialization") version "2.0.21"
@@ -46,21 +46,21 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     // Moshi
     ksp(libs.squareup.moshi.codegen)
-    ksp(libs.hilt.compiler)
+    ksp(libs.google.dagger.hilt.compiler)
     // DaggerHilt
-    implementation(libs.hilt.android)
+    implementation(libs.google.dagger.hilt.android)
     // room
-    implementation(libs.room.common)
-    implementation(libs.room.ktx)
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
     // navigation
-    implementation(libs.hilt.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     // Material
     implementation(libs.material)
-    implementation(libs.androidx.material3.android)
+    implementation(libs.androidx.compose.material3.android)
     // Material3
     implementation(libs.androidx.material3)
     // material icons

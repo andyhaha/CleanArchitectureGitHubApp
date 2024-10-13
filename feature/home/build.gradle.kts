@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.google.dagger.hilt)
+    alias(libs.plugins.google.dagger.hilt.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
     kotlin("plugin.serialization") version "2.0.21"
@@ -52,17 +52,17 @@ dependencies {
     implementation(libs.androidx.material3)
 
     ksp(libs.squareup.moshi.codegen)
-    ksp(libs.hilt.compiler)
+    ksp(libs.google.dagger.hilt.compiler)
     // only ksp(libs.hilt.compiler) is needed!
 //    implementation(libs.dagger.hilt.compiler)
-    implementation(libs.hilt.android)
+    implementation(libs.google.dagger.hilt.android)
     // room
-    implementation(libs.room.common)
-    implementation(libs.room.ktx)
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
     // navigation
-    implementation(libs.hilt.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
     // material icons
     implementation(libs.androidx.compose.material.iconsExtended)
     // paging

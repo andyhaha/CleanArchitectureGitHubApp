@@ -61,34 +61,34 @@ squareup-retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "
 squareup-okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 squareup-okhttp3-logger = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 squareup-okhttp3-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp-bom" }
-dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "dagger-hilt" }
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
-hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
-hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltExt" }
-hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltExt" }
+#dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "dagger-hilt" }
+google-dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+google-dagger-hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+google-dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
+google-dagger-hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
+androidx-hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltExt" }
+androidx-hilt-ext-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltExt" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
-room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
-room-common = { group = "androidx.room", name = "room-common", version.ref = "room" }
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging-version-compose" }
 androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging-version" }
 androidx-paging-common-android = { group = "androidx.paging", name = "paging-common-android", version.ref = "paging-version" }
 androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
 androidx-navigation-runtime = { group = "androidx.navigation", name = "navigation-runtime", version.ref = "navigationRuntime" }
-androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
+androidx-compose-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-google-dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-room = { id = "androidx.room", version.ref = "room" }
+androidx-room = { id = "androidx.room", version.ref = "room" }

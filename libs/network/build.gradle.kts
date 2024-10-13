@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.google.dagger.hilt)
+    alias(libs.plugins.google.dagger.hilt.android)
     alias(libs.plugins.ksp)
 }
 
@@ -43,14 +43,14 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    ksp(libs.hilt.compiler)
+    ksp(libs.google.dagger.hilt.compiler)
     ksp(libs.squareup.moshi.codegen)
     api(libs.squareup.retrofit)
     implementation(libs.squareup.retrofit.converter.moshi)
     implementation(libs.squareup.okhttp3)
     implementation(libs.squareup.okhttp3.logger)
 
-    implementation(libs.hilt.android)
+    implementation(libs.google.dagger.hilt.android)
 
     api(project(":libs:common"))
 }

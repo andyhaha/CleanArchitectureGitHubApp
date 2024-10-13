@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.google.dagger.hilt)
+    alias(libs.plugins.google.dagger.hilt.android)
 }
 
 android {
@@ -46,6 +46,6 @@ dependencies {
 
     api(libs.squareup.moshi)
     ksp(libs.squareup.moshi.codegen)
-    ksp(libs.hilt.compiler)
-    implementation(libs.hilt.android)
+    ksp(libs.google.dagger.hilt.compiler)
+    implementation(libs.google.dagger.hilt.android)
 }
