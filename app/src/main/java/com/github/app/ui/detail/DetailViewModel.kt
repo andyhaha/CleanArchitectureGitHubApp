@@ -52,7 +52,14 @@ class DetailViewModel @Inject constructor(
         initialValue = DetailUiState.Loading
     )
 
-    fun getUser(username: String) {
+    fun getUserWithRepositories(
+        username: String
+    ) {
+        getUser(username)
+        getUserRepositories(username)
+    }
+
+    private fun getUser(username: String) {
         userRepository.getUser(username).onEach {
             _userUiState.value = when (it) {
                 is Result.Success -> UserUiState.Success(it.value)
@@ -61,7 +68,7 @@ class DetailViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun getUserRepositories(username: String) {
+    private fun getUserRepositories(username: String) {
         userRepository.getUserRepositories(username).onEach {
             _repositoriesUiState.value = when (it) {
                 is Result.Success -> RepositoriesUiState.Success(it.value)

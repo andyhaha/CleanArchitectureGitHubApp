@@ -8,7 +8,8 @@ data class Repository(
     val starsCount: Int?,
     val description: String?,
     val githubUrl: String?,
-    val forksCount: Int?
+    val forksCount: Int?,
+    val isPrivate: Boolean?
 ) {
 
     fun formattedName(): String {
@@ -35,6 +36,15 @@ data class Repository(
             "No description provided"
         } else {
             description
+        }
+        return result
+    }
+
+    fun formattedRepoType(): String {
+        val result = if (isPrivate?.not() == true) {
+            "Public"
+        } else {
+            "Private"
         }
         return result
     }

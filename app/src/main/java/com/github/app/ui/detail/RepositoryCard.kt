@@ -54,13 +54,14 @@ fun RepositoryCard(repo: Repository, onClick: () -> Unit = {}) {
                     style = MaterialTheme.typography.titleMedium
                 )
                 Spacer(modifier = Modifier.width(8.dp))
+                // Repo type (private or public)
                 Box(
                     modifier = Modifier
                         .background(Color.White, shape = CircleShape)
                         .padding(4.dp)
                 ) {
                     Text(
-                        text = "Public",
+                        text = repo.formattedRepoType(),
                         color = Color.Gray,
                         style = MaterialTheme.typography.bodySmall
                     )
@@ -123,7 +124,8 @@ fun PreviewRepoCard() {
             starsCount = 12600,
             description = "This repo is for demonstration purposes only.",
             githubUrl = "https://github.com/octocat/Spoon-Knife",
-            forksCount = 14600
+            forksCount = 14600,
+            isPrivate = false
         )
     )
 }

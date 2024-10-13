@@ -27,19 +27,13 @@ fun DetailContent(
     detailViewModel: DetailViewModel = hiltViewModel()
 ) {
     LaunchedEffect(username) {
-        username?.let {
-            detailViewModel.getUser(it)
-            detailViewModel.getUserRepositories(it)
-        }
+        getUserWithRepositories(detailViewModel, username)
     }
 
     val uiState by detailViewModel.combinedUiState.collectAsState()
     if (uiState is DetailUiState.Error) {
         ErrorContent(onRetry = {
-            username?.let {
-                detailViewModel.getUser(it)
-                detailViewModel.getUserRepositories(it)
-            }
+            getUserWithRepositories(detailViewModel, username)
         })
         return
     }
@@ -66,6 +60,12 @@ fun DetailContent(
                 items(userWithRepositories.repositories) { repo ->
                     val context = LocalContext.current
                     RepositoryCard(repo) {
+                        if (repo.githubUrl.isNullOrBlank()) {
+                            return@RepositoryCard
+                        }
+                        if (repo.isPrivate == true) {
+                            return@RepositoryCard
+                        }
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(repo.githubUrl))
                         context.startActivity(intent)
                     }
@@ -74,5 +74,14 @@ fun DetailContent(
 
             else -> {}
         }
+    }
+}
+
+private fun getUserWithRepositories(
+    detailViewModel: DetailViewModel,
+    username: String?
+) {
+    username?.let {
+        detailViewModel.getUserWithRepositories(it)
     }
 }

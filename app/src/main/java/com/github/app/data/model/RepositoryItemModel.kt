@@ -14,7 +14,9 @@ data class RepositoryItemModel(
     @Json(name = "html_url")
     val githubUrl: String?,
     @Json(name = "forks_count")
-    val forksCount: Int?
+    val forksCount: Int?,
+    @Json(name = "private")
+    val isPrivate: Boolean?
 )
 
 fun RepositoryItemModel.toDomainModel(): Repository {
@@ -24,6 +26,7 @@ fun RepositoryItemModel.toDomainModel(): Repository {
         starsCount = starsCount,
         description = description,
         githubUrl = githubUrl,
-        forksCount = forksCount
+        forksCount = forksCount,
+        isPrivate = isPrivate
     )
 }
