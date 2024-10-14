@@ -36,7 +36,7 @@ This project utilizes the following technology stack:
 - **Moshi**: Used for parsing JSON data, enhancing the efficiency of data serialization and deserialization.
 - **Coil**: For image loading, offering smooth image processing and caching functionality.
 - **GitHub Authorize**: Uses GitHub OAuth for authorization, ensuring users can safely access and search GitHub data.
-
+- **Room Database Testing**: Ensures reliable data storage by testing CRUD operations and data integrity in the local SQLite database through unit and instrumented tests.
 Contributing
 
 We welcome suggestions and contributions to this project! Please create a Pull Request or submit an issue.
