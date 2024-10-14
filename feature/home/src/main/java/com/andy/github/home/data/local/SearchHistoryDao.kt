@@ -7,8 +7,10 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.andy.github.home.data.local.entity.SearchEntity
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Named
 
 @Dao
+//@Named("test_db")
 interface SearchHistoryDao {
 
     @Query("SELECT * FROM search_history ORDER BY id DESC")

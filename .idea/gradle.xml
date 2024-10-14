@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/libs/common" />
             <option value="$PROJECT_DIR$/libs/framework" />
             <option value="$PROJECT_DIR$/libs/network" />
+            <option value="$PROJECT_DIR$/libs/testing" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

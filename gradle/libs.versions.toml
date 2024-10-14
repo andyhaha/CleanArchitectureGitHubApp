@@ -4,6 +4,7 @@ coil = "2.7.0"
 kotlin = "2.0.20"
 coreKtx = "1.13.1"
 kotlinxSerializationJson = "1.7.1"
+kotlinxCoroutines = "1.9.0"
 ksp = "2.0.20-1.0.25"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -30,6 +31,9 @@ paging-version-compose = "3.3.2"
 runtimeAndroid = "1.7.3"
 navigationRuntime = "2.8.2"
 material3Android = "1.3.0"
+google-truth = "1.4.4"
+runner = "1.6.1"
+core = "1.46.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,6 +57,7 @@ androidx-compose-material-iconsExtended = { group = "androidx.compose.material",
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 
 squareup-moshi = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 squareup-moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
@@ -82,6 +87,10 @@ androidx-paging-common-android = { group = "androidx.paging", name = "paging-com
 androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
 androidx-navigation-runtime = { group = "androidx.navigation", name = "navigation-runtime", version.ref = "navigationRuntime" }
 androidx-compose-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+google-truth = { module = "com.google.truth:truth", version.ref = "google-truth" }
+androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
+core = { group = "com.google.ar", name = "core", version.ref = "core" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
