@@ -6,7 +6,7 @@ import okhttp3.Response
 
 class AuthorizationHeaderInterceptor : Interceptor {
     companion object {
-        private const val GITHUB_TOKEN = "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"
+        private const val GITHUB_TOKEN = "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"
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {

@@ -86,7 +86,7 @@ fun RepositoryCard(repo: Repository, onClick: () -> Unit = {}) {
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 // Language
-                LanguageBadge(repo.language ?: "")
+                LanguageBadge(repo.language ?: "Unknown")
 
                 // Stars
                 Row(verticalAlignment = Alignment.CenterVertically) {
