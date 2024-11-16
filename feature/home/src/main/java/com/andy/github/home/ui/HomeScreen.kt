@@ -1,6 +1,8 @@
 package com.andy.github.home.ui
 
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,16 +23,19 @@ fun HomeScreen(
 ) {
     var searchText by remember { mutableStateOf("") }
     val historyItemsState: SearchUiState by searchHistoryViewModel.searchHistoryItems.collectAsStateWithLifecycle()
+    val snackbarHostState = remember { SnackbarHostState() }
     Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             HomeSearchBar(
+                snackbarHostState = snackbarHostState,
                 searchUiState = historyItemsState,
                 onSearch = {
                     searchText = it.content
                     if (searchText.isNotEmpty()) {
                         searchHistoryViewModel.addHistoryItem(searchText)
                         homeViewModel.searchUserRepositories(searchText)
-                    }
+                    } 
                 },
                 delete = {
                     searchHistoryViewModel.deleteHistoryItem(it)
@@ -39,7 +44,12 @@ fun HomeScreen(
         }
     ) { innerPadding ->
         val items: LazyPagingItems<SimpleUser> = homeViewModel.searchedUsers.collectAsLazyPagingItems()
-        HomeContent(innerPadding, items, onSearchListItemClick)
+        HomeContent(
+            snackbarHostState = snackbarHostState,
+            innerPadding = innerPadding,
+            items = items,
+            onSearchListItemClick = onSearchListItemClick
+        )
     }
 }
 

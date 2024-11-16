@@ -24,7 +24,9 @@ class SearchHistoryViewModel @Inject constructor(
                 historyItems = list
             )
         }
-        .catch { SearchUiState.Error }
+        .catch {
+            SearchUiState.Error
+        }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(),
