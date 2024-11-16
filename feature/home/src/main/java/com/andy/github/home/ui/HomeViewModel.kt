@@ -24,7 +24,7 @@ class HomeViewModel @Inject constructor(
     fun searchUserRepositories(query: String) {
         viewModelScope.launch {
             userRepository.searchUserRepositories(query)
-//                .cachedIn(viewModelScope)
+                .cachedIn(viewModelScope)
                 .catch {
                     Log.d("HomeViewModel", "exception: $it")
                 }

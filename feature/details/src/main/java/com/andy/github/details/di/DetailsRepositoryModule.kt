@@ -15,5 +15,4 @@ abstract class DetailsRepositoryModule {
     abstract fun bindUserDetailsRepository(
         repository: GitHubUserDetailsRepository,
     ): UserDetailsRepository
-
 }

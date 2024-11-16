@@ -26,4 +26,3 @@ fun Int.formatToK(): String {
         value.toString()
     }
 }
-

@@ -2,20 +2,20 @@ package com.andy.github.details.ui
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.andy.github.details.domain.model.Repository
 import com.andy.github.details.domain.model.User
 import com.andy.github.details.domain.repository.UserDetailsRepository
+import com.andy.network.domain.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.stateIn
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.onEach
-import com.andy.github.details.domain.model.Repository
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
-import com.andy.network.domain.Result
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
