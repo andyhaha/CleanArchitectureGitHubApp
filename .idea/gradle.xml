@@ -11,10 +11,14 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/details" />
+            <option value="$PROJECT_DIR$/feature/home" />
             <option value="$PROJECT_DIR$/libs" />
             <option value="$PROJECT_DIR$/libs/common" />
             <option value="$PROJECT_DIR$/libs/framework" />
             <option value="$PROJECT_DIR$/libs/network" />
+            <option value="$PROJECT_DIR$/libs/testing" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

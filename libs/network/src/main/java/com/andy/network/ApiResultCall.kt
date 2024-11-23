@@ -1,6 +1,7 @@
 package com.andy.network
 
 import android.util.Log
+import com.andy.common.toJson
 import com.andy.network.data.ApiResult
 import okhttp3.Request
 import okio.Timeout
@@ -15,6 +16,7 @@ internal class ApiResultCall<T>(
     override fun enqueue(callback: Callback<ApiResult<T>>) = callDelegate.enqueue(
         object : Callback<T> {
             override fun onResponse(call: Call<T>, response: Response<T>) {
+                Log.d("ApiResultCall", "onResponse() response: $response}")
                 response.body()?.let {
                     when {
                         response.isSuccessful -> {
@@ -52,6 +54,7 @@ internal class ApiResultCall<T>(
             }
 
             override fun onFailure(call: Call<T>, throwable: Throwable) {
+                Log.d("ApiResultCall", "onFailure() throwable: $throwable}")
                 callback.onResponse(
                     this@ApiResultCall,
                     Response.success(ApiResult.Exception(throwable))

@@ -5,8 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.github.app.ui.detail.DetailScreen
-import com.github.app.ui.home.HomeScreen
+import com.andy.github.details.ui.DetailScreen
+import com.andy.github.home.ui.HomeScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
@@ -15,7 +15,9 @@ fun AppNavHost(navController: NavHostController) {
         startDestination = Screen.Home
     ) {
         composable<Screen.Home> {
-            HomeScreen(navController = navController)
+            HomeScreen {
+                navController.navigate(Screen.Detail(it.name))
+            }
         }
 
         composable<Screen.Detail> { backStackEntry ->

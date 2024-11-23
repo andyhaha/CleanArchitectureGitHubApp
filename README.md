@@ -10,34 +10,33 @@ This is a GitHub user search application that allows users to search for GitHub 
 
 This project follows the **Clean Architecture** principles and adopts the **MVVM** (Model-View-ViewModel) architectural pattern to achieve better modularization and separation of concerns. By decoupling different business logic from UI logic, the project is easier to test and maintain.
 
-### Multi-Modules Development
+Here’s an overview of your project structure, following the style of your example:
 
-The project is developed using **Android's multi-modules** approach, which allows for better separation of concerns and promotes reusability. Each module can focus on a specific feature or layer, making the codebase more organized and manageable.
+## Modules Overview
+
+The project is divided into several modules:
+
+- **:app** - Main Android app module that coordinates feature and library modules.
+- **:feature:home** - Displays a list of GitHub users with the ability to search and store results locally using Room.
+- **:feature:details** - Shows detailed information about selected users, including their profile and repositories.
+- **:libs:network** - Manages network requests using Retrofit and Moshi for data serialization.
+- **:libs:common** - Kotlin-only module providing utility functions and common classes used throughout the app.
 
 ## Technologies Used
 
 This project utilizes the following technology stack:
 
-- **Jetpack Compose**: For building the user interface, simplifying the declarative programming approach for UI.
+- **Clean Architecture**: Implements clean architecture for better separation of concerns, enhancing code maintainability and testability..
 - **MVVM**: Implements the MVVM architectural pattern to separate view logic from business logic.
-- **Clean Architecture**: Adopts a clean architecture design to improve code maintainability and testability.
+- Flow & ViewModel: For managing UI-related data in a lifecycle-conscious way.
+- **Jetpack Compose**: For building the user interface, simplifying the declarative programming approach for UI.
+- **Dagger Hilt**: Dagger Hilt simplifies dependency injection across modules and enhances testability by enabling easy mocking for unit and UI tests.
 - **Retrofit**: Used for network requests, simplifying the process of API calls.
 - **Room Database**: Provides local database support for easy data storage and querying.
 - **Moshi**: Used for parsing JSON data, enhancing the efficiency of data serialization and deserialization.
 - **Coil**: For image loading, offering smooth image processing and caching functionality.
-- **Flows**: Utilizes Kotlin Coroutines' Flows for asynchronous programming and reactive programming.
 - **GitHub Authorize**: Uses GitHub OAuth for authorization, ensuring users can safely access and search GitHub data.
-
-## How to Run the Project
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/andyhaha/GitHubApp.git
-
-2.	Import the project into Android Studio.
-3.	Ensure you are using Kotlin version 1.5 or above and configure Gradle.
-4.	Run the application.
-
+- **Room Database Testing**: Ensures reliable data storage by testing CRUD operations and data integrity in the local SQLite database through unit and instrumented tests.
 Contributing
 
 We welcome suggestions and contributions to this project! Please create a Pull Request or submit an issue.

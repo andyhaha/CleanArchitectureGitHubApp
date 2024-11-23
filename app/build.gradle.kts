@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.hilt)
+    alias(libs.plugins.google.dagger.hilt.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
     kotlin("plugin.serialization") version "2.0.21"
@@ -9,16 +9,23 @@ plugins {
 
 android {
     namespace = "com.github.app"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.github.app"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Custom test runner to set up Hilt dependency graph
+//        testInstrumentationRunner = "com.andy.testing.AppTestRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -54,6 +61,15 @@ android {
 }
 
 dependencies {
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.google.dagger.hilt.android.testing)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
+    kspTest(libs.google.dagger.hilt.compiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -62,39 +78,24 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.androidx.compose.material3.android)
 
-    ksp(libs.squareup.moshi.codegen)
-    ksp(libs.hilt.compiler)
+    ksp(libs.google.dagger.hilt.compiler)
     // only ksp(libs.hilt.compiler) is needed!
 //    implementation(libs.dagger.hilt.compiler)
-    implementation(libs.hilt.android)
-    // room
-    implementation(libs.room.common)
-    implementation(libs.room.ktx)
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
+    implementation(libs.google.dagger.hilt.android)
     // navigation
-    implementation(libs.hilt.navigation.compose)
-    // material icons
-    implementation(libs.androidx.compose.material.iconsExtended)
-    // paging
-    implementation(libs.androidx.paging.compose)
-    implementation(libs.androidx.paging.runtime)
-    implementation(libs.androidx.paging.common.android)
-    implementation(libs.coil)
-    implementation(libs.coil.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
     // navigation new version
     implementation (libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
     // network
-    implementation(project(":libs:network"))
+//    implementation(project(":libs:network"))
+
+    // Home Page
+    implementation(project(":feature:home"))
+    // Details Page
+    implementation(project(":feature:details"))
+    implementation(project(":libs:testing"))
 }
