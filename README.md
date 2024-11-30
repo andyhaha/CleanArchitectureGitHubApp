@@ -39,7 +39,6 @@ This project utilizes the following technology stack:
 - **Paging3**: Used to implement efficient pagination for user search, enabling smooth loading of data in chunks as the user scrolls.
 - **Room Database**: Provides local database support for easy data storage and querying.
 - **Moshi**: Used for parsing JSON data, enhancing the efficiency of data serialization and deserialization.
-- **Coil**: For image loading, offering smooth image processing and caching functionality.
 - **GitHub Authorize**: Uses GitHub OAuth for authorization, ensuring users can safely access and search GitHub data.
 - **Room Database Testing**: Ensures reliable data storage by testing CRUD operations and data integrity in the local SQLite database through unit and instrumented tests.
 Contributing
