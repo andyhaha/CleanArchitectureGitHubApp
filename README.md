@@ -4,7 +4,7 @@
 
 ## Project Introduction
 
-[简体中文版说明 >>>](https://github.com/andyhaha/modules/blob/main/README_cn.md)
+[简体中文版说明 >>>](https://github.com/andyhaha/GitHubApp/blob/main/README_cn.md)
 
 This is a GitHub user search application that allows users to search for GitHub users on the homepage and display a list of users. Users can click on a user in the list to enter their detailed information page, showcasing the user's basic information as well as the repositories they have created.
 
