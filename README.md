@@ -27,11 +27,13 @@ The project is divided into several modules:
 This project utilizes the following technology stack:
 
 - **Clean Architecture**: Implements clean architecture for better separation of concerns, enhancing code maintainability and testability..
-- **MVVM**: Implements the MVVM architectural pattern to separate view logic from business logic.
-- Flow & ViewModel: For managing UI-related data in a lifecycle-conscious way.
 - **Jetpack Compose**: For building the user interface, simplifying the declarative programming approach for UI.
+- **MVVM**: Implements the MVVM architectural pattern to separate view logic from business logic.
+- **Flow**: Used for handling asynchronous data streams, providing a reactive approach to manage and emit data updates in a lifecycle-aware manner.
 - **Dagger Hilt**: Dagger Hilt simplifies dependency injection across modules and enhances testability by enabling easy mocking for unit and UI tests.
 - **Retrofit**: Used for network requests, simplifying the process of API calls.
+- **Moshi**: Used for JSON parsing, simplifying the conversion between JSON and Kotlin/Java objects.
+- **Paging3**: Used to implement efficient pagination for user search, enabling smooth loading of data in chunks as the user scrolls.
 - **Room Database**: Provides local database support for easy data storage and querying.
 - **Moshi**: Used for parsing JSON data, enhancing the efficiency of data serialization and deserialization.
 - **Coil**: For image loading, offering smooth image processing and caching functionality.
