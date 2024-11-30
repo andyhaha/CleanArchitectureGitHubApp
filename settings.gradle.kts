@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GitHubApp"
+rootProject.name = "CleanArchitectureGitHubApp"
 include(":app")
 include(":libs:framework")
 include(":libs:common")
