@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -13,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.github.app"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -29,6 +31,15 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // get API_TOKEN from local.properties
+//        val localProperties = Properties()
+//        val localPropertiesFile = rootProject.file("local.properties")
+//        if (localPropertiesFile.exists()) {
+//            localProperties.load(localPropertiesFile.inputStream())
+//        }
+//        val apiToken = localProperties.getProperty("API_TOKEN", "default_token")
+//        buildConfigField("String", "API_TOKEN", "\"$apiToken\"")
     }
 
     buildTypes {
@@ -49,6 +60,7 @@ android {
     }
     buildFeatures {
         compose = true
+//        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"

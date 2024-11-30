@@ -9,14 +9,15 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -25,20 +26,28 @@ import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.wear.compose.material.ContentAlpha
 import com.andy.github.home.domain.model.SearchItem
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeSearchBar(
-    snackbarHostState: SnackbarHostState = SnackbarHostState(),
     searchUiState: SearchUiState = SearchUiState.Loading,
     onSearch: (SearchItem) -> Unit = {},
     delete: (SearchItem) -> Unit = {}
 ) {
     var text by rememberSaveable { mutableStateOf("") }
     var expanded by rememberSaveable { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
+
+    val isSearchEnabled by remember(text) {
+        derivedStateOf { text.isNotBlank() }
+    }
+    val searchIconTint = if (isSearchEnabled) {
+        MaterialTheme.colorScheme.onSurface
+    } else {
+        MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled)
+    }
+
     Box(
         Modifier
             .fillMaxWidth()
@@ -52,17 +61,16 @@ fun HomeSearchBar(
                     query = text,
                     onQueryChange = { text = it },
                     onSearch = {
-                        Log.d("HomeSearchBar", "inputField query = $it")
-                        if (text.isBlank()) {
-                            scope.launch {
-                                snackbarHostState.showSnackbar(
-                                    "Please input search text!"
-                                )
-                            }
-                            return@InputField
+                        Log.d("HomeSearchBar", "inputField query: " +
+                                "$text, isSearchEnabled: $isSearchEnabled," +
+                                " expanded: $expanded")
+                        if (isSearchEnabled) {
+                            expanded = false
+                            onSearch(SearchItem(content = it))
+                            Log.d("HomeSearchBar", "222222 inputField query: " +
+                                    "$it, isSearchEnabled: $isSearchEnabled," +
+                                    " expanded: $expanded")
                         }
-                        expanded = false
-                        onSearch(SearchItem(content = it))
                     },
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
@@ -70,16 +78,11 @@ fun HomeSearchBar(
                     leadingIcon = {
                         Icon(
                             Icons.Default.Search,
+                            tint = searchIconTint,
                             contentDescription = "search icon",
-                            modifier = Modifier.clickable {
-                                if (text.isBlank()) {
-                                    scope.launch {
-                                        snackbarHostState.showSnackbar(
-                                            "Please input search text!"
-                                        )
-                                    }
-                                    return@clickable
-                                }
+                            modifier = Modifier.clickable(
+                                enabled = isSearchEnabled
+                            ) {
                                 expanded = false
                                 onSearch(SearchItem(content = text))
                             }
@@ -91,8 +94,11 @@ fun HomeSearchBar(
                                 imageVector = Icons.Default.Close,
                                 contentDescription = "close icon",
                                 modifier = Modifier.clickable {
+                                    if (isSearchEnabled) {
+                                        text = ""
+                                        return@clickable
+                                    }
                                     expanded = false
-                                    text = ""
                                 }
                             )
                         }

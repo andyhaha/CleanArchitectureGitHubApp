@@ -1,12 +1,13 @@
 package com.andy.network
 
+import androidx.multidex.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 
 class AuthorizationHeaderInterceptor : Interceptor {
     companion object {
-        private const val GITHUB_TOKEN = "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"
+        private const val GITHUB_TOKEN = BuildConfig.VERSION_CODE
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {

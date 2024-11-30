@@ -28,7 +28,6 @@ fun HomeScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             HomeSearchBar(
-                snackbarHostState = snackbarHostState,
                 searchUiState = historyItemsState,
                 onSearch = {
                     searchText = it.content
