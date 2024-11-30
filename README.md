@@ -29,6 +29,7 @@ The project is divided into several modules:
 This project utilizes the following technology stack:
 
 - **Clean Architecture**: Implements clean architecture for better separation of concerns, enhancing code maintainability and testability..
+- **Multi-Module**: Divides the codebase into smaller, reusable, and testable modules, improving scalability, reducing dependencies, and simplifying the management and maintenance of large projects.
 - **Jetpack Compose**: For building the user interface, simplifying the declarative programming approach for UI.
 - **MVVM**: Implements the MVVM architectural pattern to separate view logic from business logic.
 - **Flow**: Used for handling asynchronous data streams, providing a reactive approach to manage and emit data updates in a lifecycle-aware manner.
