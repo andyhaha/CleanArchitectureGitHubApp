@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/badge/license-Apache%202.0-brightgreen)
 
-[简体中文版说明 >>>](https://github.com/andyhaha/GitHubApp/blob/main/README_cn.md)
+[简体中文版说明 >>>](https://github.com/andyhaha/CleanArchitectureGitHubApp/blob/main/README_cn.md)
 
 ## Project Introduction
 
