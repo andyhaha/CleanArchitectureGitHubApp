@@ -6,6 +6,8 @@
 
 这是一个 GitHub 用户搜索应用程序，用户可以在首页搜索 GitHub 用户并显示用户列表。用户可以点击列表中的某个用户，进入该用户的详细信息页面，展示用户的基本信息以及他们创建的仓库。
 
+**🔥注意事项：** 在local.properties文件中加一个变量，API_TOKEN=xxxxxxxxxxxx， 把API_TOKEN替换成自己的GitHub API token
+
 ## 架构简介
 
 该项目遵循 **Clean Architecture** 原则，并采用 **MVVM**（Model-View-ViewModel）架构模式，以实现更好的模块化和关注点分离。通过将不同的业务逻辑与 UI 逻辑解耦，项目更容易进行测试和维护。
