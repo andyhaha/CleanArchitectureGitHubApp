@@ -2,11 +2,11 @@
 
 ![License](https://img.shields.io/badge/license-Apache%202.0-brightgreen)
 
+**🔥注意事项：** 在local.properties文件中加一个变量，API_TOKEN=xxxxxxxxxxxx， 把API_TOKEN替换成自己的GitHub API token
+
 ## 项目简介
 
 这是一个 GitHub 用户搜索应用程序，用户可以在首页搜索 GitHub 用户并显示用户列表。用户可以点击列表中的某个用户，进入该用户的详细信息页面，展示用户的基本信息以及他们创建的仓库。
-
-**🔥注意事项：** 在local.properties文件中加一个变量，API_TOKEN=xxxxxxxxxxxx， 把API_TOKEN替换成自己的GitHub API token
 
 ## 架构简介
 
