@@ -4,6 +4,8 @@
 
 [简体中文版说明 >>>](https://github.com/andyhaha/CleanArchitectureGitHubApp/blob/main/README_cn.md)
 
+**🔥注意事项：** 在local.properties文件中加一个变量，API_TOKEN=xxxxxxxxxxxx， 把API_TOKEN替换成自己的GitHub API token
+
 ## Project Introduction
 
 This is a GitHub user search application that allows users to search for GitHub users on the homepage and display a list of users. Users can click on a user in the list to enter their detailed information page, showcasing the user's basic information as well as the repositories they have created.
