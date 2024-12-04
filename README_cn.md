@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/badge/license-Apache%202.0-brightgreen)
 
-**🔥注意事项：** 在local.properties文件中加一个变量，API_TOKEN=xxxxxxxxxxxx， 把API_TOKEN替换成自己的GitHub API token
+**🔥注意事项：** 在local.properties文件中加一个变量，API_TOKEN=xxx， 把“xxx”替换成自己的GitHub API token
 
 ## 项目简介
 
