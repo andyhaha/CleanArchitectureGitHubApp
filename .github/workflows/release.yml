@@ -1,7 +1,7 @@
 name: Deploy To Google Play
 
 on:
-  pull_request: 
+  push: 
     branches: [main]
 
 jobs:
