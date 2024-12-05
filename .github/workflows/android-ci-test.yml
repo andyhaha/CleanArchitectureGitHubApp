@@ -4,7 +4,7 @@ env:
   # The name of the main module repository
   main_project_module: app
   # The name of the Play Store
-  playstore_name: Test CI/CD
+  playstore_name: GitHub CI/CD
 
 on:
   push:
@@ -55,7 +55,7 @@ jobs:
       # Create Bundle AAB Release
       # Noted for main module build [main_project_module]:bundleRelease
       - name: Build app bundle relase (AAB) - ${{ env.main_project_module }} module
-        run: ./gradlew ${{ env.main_project_module}}:bundleRelease
+        run: ./gradlew ${{ env.main_project_module }}:bundleRelease
 
       # Upload Artifact Build
       # Noted For Output [main_project_main]/build.outputs/apk/debug/
