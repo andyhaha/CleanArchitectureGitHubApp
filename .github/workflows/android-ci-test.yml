@@ -20,12 +20,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Set Current date as env Variable
       - name: Set current date as env variavle
-        run: echo "date_today=$(date +%Y-%m-%d\%H:%M:%S)" >> $GITHUB_ENV
-        
+        run: |
+          date_today=$(date +%Y-%m-%d_%H-%M-%S) 
+          echo "date_today=$date_today" >> $GITHUB_ENV
 
       # Set Repository Name as Env Variable
       - name: Set repository name as env variable
