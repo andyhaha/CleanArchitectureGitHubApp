@@ -7,6 +7,10 @@ env:
   playstore_name: GitHubApp
 
 on:
+   pull_request:
+    branches:
+      - 'main'
+     
   push:
     branches:
       - 'main'
