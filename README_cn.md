@@ -40,10 +40,11 @@
 - **Coil**: 用于图像加载，提供平滑的图像处理和缓存功能。
 - **GitHub Authorize**: 使用 GitHub OAuth 进行授权，确保用户可以安全地访问和搜索 GitHub 数据。
 - **Room Database Testing**: 通过单元测试和仪器测试，确保本地 SQLite 数据库中的数据存储的可靠性，测试 CRUD 操作和数据完整性。
+- **UI Testing**：通过 Compose UI 测试验证 HomeContent、SearchHistory 和 HomeSearchBar 等基于 Compose 的组件的功能和用户体验，确保交互流畅且渲染正确。
 
 ## 贡献
 
-我们欢迎对这个项目提出建议和贡献！请创建一个 Pull Request 或提交问题。
+欢迎对这个项目提出建议和贡献！请创建一个 Pull Request 或提交问题。
 
 ## 许可证
 
