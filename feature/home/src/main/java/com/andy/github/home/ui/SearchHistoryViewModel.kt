@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.lang.Error
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,7 +26,7 @@ class SearchHistoryViewModel @Inject constructor(
             )
         }
         .catch {
-            SearchUiState.Error
+            SearchUiState.Error(it.message ?: "Unknown Error")
         }
         .stateIn(
             viewModelScope,
@@ -58,6 +59,6 @@ class SearchHistoryViewModel @Inject constructor(
 
 sealed interface SearchUiState {
     data class Success(val historyItems: List<SearchItem>) : SearchUiState
-    data object Error : SearchUiState
+    data class Error(val message: String) : SearchUiState
     data object Loading : SearchUiState
 }

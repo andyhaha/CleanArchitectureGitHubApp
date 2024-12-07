@@ -14,9 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.andy.github.home.domain.model.SimpleUser
-import com.andy.github.home.ui.component.LoadNoData
-import com.andy.github.home.ui.component.LoadingItem
-import com.andy.github.home.ui.component.NoMoreDataItem
+import com.andy.github.home.ui.components.LoadingItem
+import com.andy.github.home.ui.components.NoData
+import com.andy.github.home.ui.components.NoMoreDataItem
 
 @Composable
 fun HomeContent(
@@ -53,7 +53,7 @@ fun HomeContent(
     }
 
     if (items.itemCount == 0) {
-        LoadNoData()
+        NoData()
         return
     }
 

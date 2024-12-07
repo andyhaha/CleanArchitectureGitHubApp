@@ -35,6 +35,7 @@ google-truth = "1.4.4"
 runner = "1.6.2"
 core = "1.46.0"
 composeMaterial = "1.4.0"
+uiTestJunit4Android = "1.7.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -93,6 +94,10 @@ google-truth = { module = "com.google.truth:truth", version.ref = "google-truth"
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 core = { group = "com.google.ar", name = "core", version.ref = "core" }
 androidx-compose-material = { group = "androidx.wear.compose", name = "compose-material", version.ref = "composeMaterial" }
+androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
+androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test" }
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,10 +1,9 @@
-package com.andy.github.home
+package com.andy.github.home.di
 
 import android.content.Context
 import androidx.room.Room
 import com.andy.github.home.data.local.SearchHistoryDao
 import com.andy.github.home.data.local.SearchHistoryDatabase
-import com.andy.github.home.di.DatabaseModule
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext

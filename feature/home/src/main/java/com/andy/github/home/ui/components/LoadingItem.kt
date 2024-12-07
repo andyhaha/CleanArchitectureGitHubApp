@@ -1,4 +1,4 @@
-package com.andy.github.home.ui.component
+package com.andy.github.home.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

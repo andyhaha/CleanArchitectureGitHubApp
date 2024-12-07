@@ -1,9 +1,7 @@
-package com.andy.github.home
+package com.andy.github.home.data.local
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.andy.github.home.data.local.SearchHistoryDao
-import com.andy.github.home.data.local.SearchHistoryDatabase
 import com.andy.github.home.data.local.entity.SearchEntity
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
@@ -32,7 +30,7 @@ class SearchHistoryDaoTest {
     }
 
     @Test
-    fun test_insert_a_search_record() = runTest {
+    fun insertSingleSearchRecord() = runTest {
         // Insert a search record
         val searchEntity = SearchEntity(
             id = 1,
@@ -49,7 +47,7 @@ class SearchHistoryDaoTest {
     }
 
     @Test
-    fun test_delete_a_search_record() = runTest {
+    fun deleteSingleSearchRecord() = runTest {
         // Insert a search record
         val searchEntity = SearchEntity(
             id = 1,
@@ -66,7 +64,7 @@ class SearchHistoryDaoTest {
     }
 
     @Test
-    fun test_delete_all_search_records() = runTest {
+    fun deleteAllSearchRecords() = runTest {
         // Insert multiple search records
         val insertList = mutableListOf<SearchEntity>()
         repeat(10) {
@@ -88,6 +86,27 @@ class SearchHistoryDaoTest {
         val searchRecords = searchHistoryDao.getAllSearchRecords()
             .first()
 
+        assertThat(searchRecords).isEmpty()
+    }
+
+    @Test
+    fun insertAndRetrieveMultipleRecords() = runTest {
+        val searchEntities = (1..3).map {
+            SearchEntity(
+                id = it,
+                content = "test multiple $it"
+            )
+        }
+        searchEntities.forEach { searchHistoryDao.insertSearch(it) }
+
+        val searchRecords = searchHistoryDao.getAllSearchRecords().first()
+        assertThat(searchRecords).hasSize(3)
+        assertThat(searchRecords).containsAtLeastElementsIn(searchEntities)
+    }
+
+    @Test
+    fun retrieveEmptyDatabase() = runTest {
+        val searchRecords = searchHistoryDao.getAllSearchRecords().first()
         assertThat(searchRecords).isEmpty()
     }
 }

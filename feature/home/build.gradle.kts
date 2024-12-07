@@ -37,22 +37,17 @@ android {
 }
 
 dependencies {
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
 
     implementation(libs.core)
     implementation(libs.androidx.compose.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.google.dagger.hilt.android.testing)
-    // coroutines for test
-    androidTestImplementation(libs.kotlinx.coroutines.test)
-    androidTestImplementation(libs.kotlin.test)
-    androidTestImplementation (libs.google.truth)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
+//    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
@@ -84,4 +79,19 @@ dependencies {
 
     // network
     implementation(project(":libs:network"))
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.ui.test.junit4.android)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.google.dagger.hilt.android.testing)
+    // coroutines for test
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.kotlin.test)
+    androidTestImplementation (libs.google.truth)
+//    androidTestImplementation(libs.androidx.compose.ui.test)
+    // compose ui test
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    // compose ui test
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }

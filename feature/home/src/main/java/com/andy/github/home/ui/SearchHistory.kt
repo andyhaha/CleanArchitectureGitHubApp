@@ -21,7 +21,7 @@ fun SearchHistory(
         }
 
         is SearchUiState.Error -> {
-            // Handle error state
+            Text(state.message)
         }
 
         is SearchUiState.Loading -> {

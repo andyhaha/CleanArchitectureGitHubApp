@@ -62,8 +62,12 @@ fun SearchHistoryList(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewSearchHistoryList() {
-    SearchHistoryList()
+    SearchHistoryList(
+        historyItems = listOf(SearchItem(content = "Example Item")),
+        onItemClick = {},
+        delete = {}
+    )
 }

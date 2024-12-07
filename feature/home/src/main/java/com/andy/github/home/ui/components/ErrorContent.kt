@@ -1,4 +1,4 @@
-package com.andy.github.home.ui.component
+package com.andy.github.home.ui.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,13 +10,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun LoadNoData(innerPadding: PaddingValues = PaddingValues()) {
+fun LoadError(innerPadding: PaddingValues = PaddingValues()) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(innerPadding.calculateTopPadding()),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "No users")
+        Text(text = "Load error")
     }
 }

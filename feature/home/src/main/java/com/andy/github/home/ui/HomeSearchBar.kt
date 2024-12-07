@@ -1,6 +1,5 @@
 package com.andy.github.home.ui
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -61,15 +60,9 @@ fun HomeSearchBar(
                     query = text,
                     onQueryChange = { text = it },
                     onSearch = {
-                        Log.d("HomeSearchBar", "inputField query: " +
-                                "$text, isSearchEnabled: $isSearchEnabled," +
-                                " expanded: $expanded")
                         if (isSearchEnabled) {
                             expanded = false
                             onSearch(SearchItem(content = it))
-                            Log.d("HomeSearchBar", "222222 inputField query: " +
-                                    "$it, isSearchEnabled: $isSearchEnabled," +
-                                    " expanded: $expanded")
                         }
                     },
                     expanded = expanded,

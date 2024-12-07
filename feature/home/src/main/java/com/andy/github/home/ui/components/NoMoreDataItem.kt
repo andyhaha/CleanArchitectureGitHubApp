@@ -1,4 +1,4 @@
-package com.andy.github.home.ui.component
+package com.andy.github.home.ui.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
