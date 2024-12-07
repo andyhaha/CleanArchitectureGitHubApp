@@ -42,9 +42,9 @@ This project utilizes the following technology stack:
 - **Moshi**: Used for parsing JSON data, enhancing the efficiency of data serialization and deserialization.
 - **GitHub Authorize**: Uses GitHub OAuth for authorization, ensuring users can safely access and search GitHub data.
 - **Room Database Testing**: Ensures reliable data storage by testing CRUD operations and data integrity in the local SQLite database through unit and instrumented tests.
-Contributing
+- **UI Testing**: Verifies the functionality and user experience of Compose-based components, including HomeContent, SearchHistory, and HomeSearchBar, through thorough Compose UI tests to ensure smooth interactions and correct rendering.
 
-We welcome suggestions and contributions to this project! Please create a Pull Request or submit an issue.
+I welcome suggestions and contributions to this project! Please create a Pull Request or submit an issue.
 
 ## License
 
