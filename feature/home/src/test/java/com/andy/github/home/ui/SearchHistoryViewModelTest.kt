@@ -1,109 +1,116 @@
-//package com.andy.github.home.ui
-//
-//import com.andy.github.home.data.FakeSearchHistoryRepository
-//import com.andy.github.home.domain.model.SearchItem
-//import com.andy.github.home.domain.model.toUiSearchItem
-//import com.google.common.truth.Truth.assertThat
-//import kotlinx.coroutines.Dispatchers
-//import kotlinx.coroutines.ExperimentalCoroutinesApi
-//import kotlinx.coroutines.flow.first
-//import kotlinx.coroutines.test.StandardTestDispatcher
-//import kotlinx.coroutines.test.TestDispatcher
-//import kotlinx.coroutines.test.advanceUntilIdle
-//import kotlinx.coroutines.test.resetMain
-//import kotlinx.coroutines.test.runTest
-//import kotlinx.coroutines.test.setMain
-//import org.junit.After
-//import org.junit.Before
-//import org.junit.Test
-//
-//class SearchHistoryViewModelTest {
-//    private lateinit var repository: FakeSearchHistoryRepository
-//    private lateinit var viewModel: SearchHistoryViewModel
-//
-//    private val testDispatcher: TestDispatcher = StandardTestDispatcher()
-//
-//    @OptIn(ExperimentalCoroutinesApi::class)
-//    @Before
-//    fun setup() {
-//        Dispatchers.setMain(testDispatcher)
-//        repository = FakeSearchHistoryRepository()
-//        viewModel = SearchHistoryViewModel(repository)
-//    }
-//
-//    @OptIn(ExperimentalCoroutinesApi::class)
-//    @After
-//    fun tearDown() {
-//        Dispatchers.resetMain()
-//    }
-//
-//    @OptIn(ExperimentalCoroutinesApi::class)
-//    @Test
-//    fun testAddHistoryItem() = runTest {
-//        val content = "New History"
-//
-//        // Ensure initial state is Loading before adding item
-//        assertThat(viewModel.viewState.value)
-//            .isEqualTo(SearchUiState.Loading)
-//
-//        // Add item via ViewModel
-//        viewModel.addHistoryItem(content)
-////        repository.getAllSearchRecords().first()
-//
-//        // Wait for any pending coroutines to complete
-//        advanceUntilIdle()
-//
-//        // Check if the repository's state reflects the added item
-//        val state = viewModel.viewState.value
-//        assertThat(state)
-//            .isEqualTo(
-//                SearchUiState.Success(
-//                    historyItems = listOf(UiSearchItem(content = content))
-//                )
-//            )
-//    }
-//
-//    @OptIn(ExperimentalCoroutinesApi::class)
-//    @Test
-//    fun testDeleteHistoryItem() = runTest {
-//        val content = UiSearchItem(content = "Delete History")
-//
-//        // Add item first
-//        repository.insertSearch(content.toDomainSearchItem())
-//
-//        // Ensure initial state is Loading before deleting
-//        assertThat(viewModel.viewState.value).isEqualTo(SearchUiState.Loading)
-//
-//        // Delete item via ViewModel
-//        viewModel.deleteHistoryItem(content)
-//
-//        // Wait for any pending coroutines to complete
-//        advanceUntilIdle()
-//
-//        // Check if the repository's state reflects the removal of the item
-//        val state = viewModel.viewState.first()
-//        assertThat(state).isEqualTo(SearchUiState.Success(historyItems = emptyList()))
-//    }
-//
-//    @OptIn(ExperimentalCoroutinesApi::class)
-//    @Test
-//    fun testClearHistory() = runTest {
-//        val content = SearchItem(content = "Clear History")
-//
-//        // Add an item first
-//        repository.insertSearch(content)
-//
-//        // Ensure initial state is Loading before clearing history
-//        assertThat(viewModel.viewState.first()).isEqualTo(SearchUiState.Loading)
-//
-//        // Clear history via ViewModel
-//        viewModel.clearHistory()
-//
-//        // Wait for any pending coroutines to complete
-//        advanceUntilIdle()
-//
-//        // Check if the repository's state is empty after clearing
-//        val state = viewModel.viewState.first()
-//        assertThat(state).isEqualTo(SearchUiState.Success(historyItems = emptyList()))
-//    }
-//}
+package com.andy.github.home.ui
+
+import com.andy.github.home.data.FakeSearchHistoryRepository
+import com.andy.github.home.domain.model.SearchItem
+import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+
+class SearchHistoryViewModelTest {
+    private lateinit var viewModel: SearchHistoryViewModel
+    private val testDispatcher: TestDispatcher = StandardTestDispatcher()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Before
+    fun setup() {
+        Dispatchers.setMain(testDispatcher)
+        viewModel = SearchHistoryViewModel(FakeSearchHistoryRepository())
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+    }
+
+    // Helper to assert the Loading state
+    private suspend fun assertLoadingState() {
+        val loadingState = viewModel.viewState.first { it is SearchUiState.Loading }
+        assertThat(loadingState)
+            .isEqualTo(SearchUiState.Loading)
+    }
+
+    // Helper to assert the Success state with expected items
+    private suspend fun assertSuccessState(expectedItems: List<SearchItem>) {
+        val successState =
+            viewModel.viewState.first { it is SearchUiState.Success } as SearchUiState.Success
+        assertThat(
+            successState.historyItems.map { it.toDomainSearchItem() })
+            .isEqualTo(expectedItems)
+    }
+
+    @Test
+    fun testAddHistoryItem() = runTest {
+        val content = "New History"
+        val expectedItem = SearchItem(content = content)
+
+        // Add item via ViewModel
+        viewModel.addHistoryItem(content)
+
+        // Assert Loading and Success states
+        assertLoadingState()
+        assertSuccessState(listOf(expectedItem))
+    }
+
+    @Test
+    fun testDeleteHistoryItem() = runTest {
+        val content = "Delete History"
+        val uiItem = UiSearchItem(content = content)
+
+        // Add an item first
+        viewModel.addHistoryItem(content)
+
+        // Assert Loading state before deletion
+        assertLoadingState()
+
+        // Delete the item
+        viewModel.deleteHistoryItem(uiItem)
+
+        // Assert Success state reflects an empty list
+        assertSuccessState(emptyList())
+    }
+
+    @Test
+    fun testClearHistory() = runTest {
+        val content = "Clear History"
+
+        // Add an item first
+        viewModel.addHistoryItem(content)
+
+        // Assert Loading state before clearing
+        assertLoadingState()
+
+        // Clear all history
+        viewModel.clearHistory()
+
+        // Assert Success state reflects an empty list
+        assertSuccessState(emptyList())
+    }
+
+    @Test
+    fun testClearHistoryWithMultipleItems() = runTest {
+        // Add some items to the history
+        val items = listOf(
+            SearchItem(content = "History 1"),
+            SearchItem(content = "History 2"),
+            SearchItem(content = "History 3")
+        )
+
+        items.forEach { viewModel.addHistoryItem(it.content) }
+
+        // Trigger clear history operation
+        viewModel.clearHistory()
+
+        // Assert that the history is now empty
+        assertSuccessState(emptyList())
+    }
+}
