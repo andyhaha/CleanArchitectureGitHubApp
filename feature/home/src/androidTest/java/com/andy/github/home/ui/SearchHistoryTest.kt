@@ -2,7 +2,6 @@ package com.andy.github.home.ui
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import com.andy.github.home.domain.model.SearchItem
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
@@ -25,8 +24,8 @@ class SearchHistoryTest {
     @Test
     fun testSuccessState() {
         val sampleHistoryItems = listOf(
-            SearchItem(content = "Item 1"),
-            SearchItem(content = "Item 2")
+            UiSearchItem(content = "Item 1"),
+            UiSearchItem(content = "Item 2")
         )
 
         composeTestRule.setContent {
@@ -52,11 +51,11 @@ class SearchHistoryTest {
     @Test
     fun testItemClick() {
         val sampleHistoryItems = listOf(
-            SearchItem(content = "Item 1")
+            UiSearchItem(content = "Item 1")
         )
 
-        var clickedItem: SearchItem? = null
-        val onItemClick: (SearchItem) -> Unit = { clickedItem = it }
+        var clickedItem: UiSearchItem? = null
+        val onItemClick: (UiSearchItem) -> Unit = { clickedItem = it }
 
         composeTestRule.setContent {
             SearchHistory(state = SearchUiState.Success(sampleHistoryItems), onItemClick = onItemClick)
@@ -72,11 +71,11 @@ class SearchHistoryTest {
     @Test
     fun testItemDelete() {
         val sampleHistoryItems = listOf(
-            SearchItem(content = "Item 1")
+            UiSearchItem(content = "Item 1")
         )
 
-        var deletedItem: SearchItem? = null
-        val delete: (SearchItem) -> Unit = { deletedItem = it }
+        var deletedItem: UiSearchItem? = null
+        val delete: (UiSearchItem) -> Unit = { deletedItem = it }
 
         composeTestRule.setContent {
             SearchHistory(state = SearchUiState.Success(sampleHistoryItems), delete = delete)

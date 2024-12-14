@@ -3,12 +3,11 @@ package com.andy.github.home.ui
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.andy.github.home.domain.model.SearchItem
 
 @Composable
 fun SearchHistory(
-    onItemClick: (SearchItem) -> Unit = {},
-    delete: (SearchItem) -> Unit = {},
+    onItemClick: (UiSearchItem) -> Unit = {},
+    delete: (UiSearchItem) -> Unit = {},
     state: SearchUiState = SearchUiState.Loading
 ) {
     when (state) {

@@ -9,10 +9,10 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import com.andy.github.home.domain.model.SearchItem
+import com.andy.github.home.domain.model.toUiSearchItem
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
-import kotlin.test.assertTrue
 
 class HomeSearchBarTest {
 
@@ -36,7 +36,7 @@ class HomeSearchBarTest {
 
         composeTestRule.setContent {
             HomeSearchBar(onSearch = { item ->
-                searchTriggered = (item == testSearchItem)
+                searchTriggered = (item == testSearchItem.toUiSearchItem())
             })
         }
 
@@ -57,9 +57,9 @@ class HomeSearchBarTest {
 
         composeTestRule.setContent {
             HomeSearchBar(
-                searchUiState = SearchUiState.Success(listOf(testSearchItem)),
+                searchUiState = SearchUiState.Success(listOf(testSearchItem.toUiSearchItem())),
                 onSearch = { item ->
-                    searchTriggered = (item == testSearchItem)
+                    searchTriggered = (item == testSearchItem.toUiSearchItem())
                 }
             )
         }

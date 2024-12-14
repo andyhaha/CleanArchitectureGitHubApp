@@ -26,14 +26,13 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material.ContentAlpha
-import com.andy.github.home.domain.model.SearchItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeSearchBar(
     searchUiState: SearchUiState = SearchUiState.Loading,
-    onSearch: (SearchItem) -> Unit = {},
-    delete: (SearchItem) -> Unit = {}
+    onSearch: (UiSearchItem) -> Unit = {},
+    delete: (UiSearchItem) -> Unit = {}
 ) {
     var text by rememberSaveable { mutableStateOf("") }
     var expanded by rememberSaveable { mutableStateOf(false) }
@@ -62,7 +61,7 @@ fun HomeSearchBar(
                     onSearch = {
                         if (isSearchEnabled) {
                             expanded = false
-                            onSearch(SearchItem(content = it))
+                            onSearch(UiSearchItem(content = it))
                         }
                     },
                     expanded = expanded,
@@ -77,7 +76,7 @@ fun HomeSearchBar(
                                 enabled = isSearchEnabled
                             ) {
                                 expanded = false
-                                onSearch(SearchItem(content = text))
+                                onSearch(UiSearchItem(content = text))
                             }
                         )
                     },

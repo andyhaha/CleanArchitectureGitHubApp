@@ -22,7 +22,7 @@ fun HomeScreen(
     onSearchListItemClick: (SimpleUser) -> Unit = {}
 ) {
     var searchText by remember { mutableStateOf("") }
-    val historyItemsState: SearchUiState by searchHistoryViewModel.searchHistoryItems.collectAsStateWithLifecycle()
+    val historyItemsState: SearchUiState by searchHistoryViewModel.viewState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },

@@ -21,13 +21,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.andy.github.home.domain.model.SearchItem
 
 @Composable
 fun SearchHistoryList(
-    historyItems: List<SearchItem> = emptyList(),
-    onItemClick: (SearchItem) -> Unit = {},
-    delete: (SearchItem) -> Unit = {}
+    historyItems: List<UiSearchItem> = emptyList(),
+    onItemClick: (UiSearchItem) -> Unit = {},
+    delete: (UiSearchItem) -> Unit = {}
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -66,7 +65,7 @@ fun SearchHistoryList(
 @Composable
 fun PreviewSearchHistoryList() {
     SearchHistoryList(
-        historyItems = listOf(SearchItem(content = "Example Item")),
+        historyItems = listOf(UiSearchItem(content = "Example Item")),
         onItemClick = {},
         delete = {}
     )

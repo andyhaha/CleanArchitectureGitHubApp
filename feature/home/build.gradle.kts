@@ -94,4 +94,8 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     // compose ui test
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    // coroutines for test
+    testImplementation (libs.kotlinx.coroutines.test)
+    // truth libs for test
+    testImplementation (libs.google.truth)
 }
