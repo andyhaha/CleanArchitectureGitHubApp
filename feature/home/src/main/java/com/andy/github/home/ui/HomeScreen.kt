@@ -33,8 +33,8 @@ fun HomeScreen(
                     searchText = it.content
                     if (searchText.isNotEmpty()) {
                         searchHistoryViewModel.addHistoryItem(searchText)
-                        homeViewModel.searchUserRepositories(searchText)
-                    } 
+                        homeViewModel.search(searchText)
+                    }
                 },
                 delete = {
                     searchHistoryViewModel.deleteHistoryItem(it)

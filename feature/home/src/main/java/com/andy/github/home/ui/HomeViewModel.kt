@@ -1,6 +1,5 @@
 package com.andy.github.home.ui
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -8,30 +7,34 @@ import androidx.paging.cachedIn
 import com.andy.github.home.domain.model.SimpleUser
 import com.andy.github.home.domain.repository.SimpleUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val userRepository: SimpleUserRepository
-): ViewModel() {
-    private val _searchedUsers = MutableStateFlow<PagingData<SimpleUser>>(PagingData.empty())
-    val searchedUsers = _searchedUsers.asStateFlow()
+    private val userRepository: SimpleUserRepository,
+) : ViewModel() {
 
-    fun searchUserRepositories(query: String) {
-        viewModelScope.launch {
-            userRepository.searchUserRepositories(query)
-                .cachedIn(viewModelScope)
-                .catch {
-                    Log.d("HomeViewModel", "exception: $it")
-                }
-                .collect {
-                    Log.d("HomeViewModel", "collect: $it")
-                    _searchedUsers.value = it
-                }
-        }
+    private val query = MutableStateFlow<String?>(null)
+
+    val searchedUsers: StateFlow<PagingData<SimpleUser>> = query
+        .filterNotNull()
+        .flatMapLatest { userRepository.searchUserRepositories(it) }
+        .cachedIn(viewModelScope)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = PagingData.empty(),
+        )
+
+    fun search(query: String) {
+        this.query.value = query
     }
 }
