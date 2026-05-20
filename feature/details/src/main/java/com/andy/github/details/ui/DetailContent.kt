@@ -26,14 +26,12 @@ fun DetailContent(
     detailViewModel: DetailViewModel = hiltViewModel()
 ) {
     LaunchedEffect(username) {
-        getUserWithRepositories(detailViewModel, username)
+        username?.let { detailViewModel.load(it) }
     }
 
     val uiState by detailViewModel.combinedUiState.collectAsState()
     if (uiState is DetailUiState.Error) {
-        ErrorContent(onRetry = {
-            getUserWithRepositories(detailViewModel, username)
-        })
+        ErrorContent(onRetry = detailViewModel::retry)
         return
     }
 
@@ -76,11 +74,3 @@ fun DetailContent(
     }
 }
 
-private fun getUserWithRepositories(
-    detailViewModel: DetailViewModel,
-    username: String?
-) {
-    username?.let {
-        detailViewModel.getUserWithRepositories(it)
-    }
-}
