@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.andy.github.home.data.repository.SimpleGitHubUserRepository
 import com.andy.github.home.domain.model.SimpleUser
-import com.andy.github.home.domain.repository.SimpleUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val userRepository: SimpleUserRepository,
+    private val userRepository: SimpleGitHubUserRepository,
 ) : ViewModel() {
 
     private val query = MutableStateFlow<String?>(null)

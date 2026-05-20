@@ -6,16 +6,15 @@ import androidx.paging.PagingData
 import com.andy.github.home.data.paging.SearchPagingSource
 import com.andy.github.home.data.remote.HomeApiService
 import com.andy.github.home.domain.model.SimpleUser
-import com.andy.github.home.domain.repository.SimpleUserRepository
 import com.andy.network.common.Constants
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SimpleGitHubUserRepository @Inject constructor(
     private val apiService: HomeApiService
-) : SimpleUserRepository {
+) {
 
-    override fun searchUserRepositories(
+    fun searchUserRepositories(
         query: String
     ): Flow<PagingData<SimpleUser>> {
         return Pager(
