@@ -1,15 +1,12 @@
 package com.andy.common
 
 import android.annotation.SuppressLint
-import android.util.Log
 
 @SuppressLint("DefaultLocale")
 fun Int.formatToK(): String {
     val value = this
     return if (value >= 1000) {
         val formattedValue = value / 1000
-        Log.d("FormattedValue", "this = $value, " +
-                "formattedValue = ${value % 1000}")
         val modules = value % 1000
         if (modules < 50) {
             // No decimal part needed, return integer (e.g., 4k)
