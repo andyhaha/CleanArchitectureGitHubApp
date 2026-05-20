@@ -1,12 +1,9 @@
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.dagger.hilt.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.compiler)
-//    kotlin("plugin.serialization") version "2.0.21"
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -23,24 +20,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // Custom test runner to set up Hilt dependency graph
-//        testInstrumentationRunner = "com.andy.testing.AppTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        vectorDrawables {
-            useSupportLibrary = true
-        }
-
-        // get API_TOKEN from local.properties
-//        val localProperties = Properties()
-//        val localPropertiesFile = rootProject.file("local.properties")
-//        if (localPropertiesFile.exists()) {
-//            localProperties.load(localPropertiesFile.inputStream())
-//        }
-//        val apiToken = localProperties.getProperty("API_TOKEN", "default_token")
-//        buildConfigField("String", "API_TOKEN", "\"$apiToken\"")
     }
 
     buildTypes {
