@@ -1,6 +1,5 @@
 package com.andy.github.home.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -25,12 +24,10 @@ fun HomeContent(
     items: LazyPagingItems<SimpleUser>,
     onSearchListItemClick: (SimpleUser) -> Unit = {}
 ) {
-    Log.d("HomeContent", "items.loadState = ${items.loadState}")
-    Log.d("HomeContent", "items.loadState.refresh = ${items.loadState.refresh}")
     when {
         items.loadState.refresh is LoadState.Error -> {
             val error = (items.loadState.refresh as LoadState.Error).error
-            LaunchedEffect(snackbarHostState) {
+            LaunchedEffect(error) {
                 snackbarHostState.showSnackbar(
                     message = error.message ?: "Unknown error!",
                     actionLabel = "Cancel",
@@ -40,9 +37,8 @@ fun HomeContent(
         }
 
         items.loadState.append is LoadState.Error -> {
-            Log.d("HomeContent", "items.loadState.append is LoadState.Error: ${items.loadState.append}")
             val error = (items.loadState.append as LoadState.Error).error
-            LaunchedEffect(snackbarHostState) {
+            LaunchedEffect(error) {
                 snackbarHostState.showSnackbar(
                     message = error.message ?: "Unknown error!",
                     actionLabel = "Cancel",
@@ -76,11 +72,6 @@ fun HomeContent(
 
                 items.loadState.append.endOfPaginationReached -> {
                     NoMoreDataItem()
-                }
-
-                items.loadState.append is LoadState.Error -> {
-                    Log.d("HomeContent", "LazyColumn items.loadState.append " +
-                            "is LoadState.Error: ${items.loadState.append}")
                 }
             }
         }
