@@ -3,14 +3,12 @@ package com.andy.github.home.data.paging
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.andy.common.toJson
 import com.andy.github.home.data.model.toDomainUser
 import com.andy.github.home.data.remote.HomeApiService
 import com.andy.github.home.domain.model.SimpleUser
 import com.andy.network.common.Constants
 import com.andy.network.common.errorMessage
 import com.andy.network.data.ApiResult
-import com.andy.network.domain.Result
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -32,11 +30,6 @@ class SearchPagingSource(
                     val list = result.data.items.map {
                         it.toDomainUser()
                     }
-                    Log.d(
-                        "SearchPagingSource",
-                        "list = ${result.data.items.toJson()}"
-                    )
-                    Result.Success(list)
                     return LoadResult.Page(
                         data = list,
                         prevKey = if (page == 1) null else page - 1,
