@@ -111,5 +111,4 @@ dependencies {
     implementation(project(":feature:home"))
     // Details Page
     implementation(project(":feature:details"))
-    implementation(project(":libs:testing"))
 }
