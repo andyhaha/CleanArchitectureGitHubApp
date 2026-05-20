@@ -6,6 +6,7 @@ import com.andy.github.details.data.remote.DetailsApiService
 import com.andy.github.details.domain.model.Repository
 import com.andy.github.details.domain.model.User
 import com.andy.github.details.domain.repository.UserDetailsRepository
+import com.andy.network.common.errorMessage
 import com.andy.network.data.ApiResult
 import com.andy.network.domain.Result
 import kotlinx.coroutines.CoroutineDispatcher
@@ -28,7 +29,7 @@ class GitHubUserDetailsRepository @Inject constructor(
                     emit(Result.Success(result.data.toDomainUser()))
                 }
                 is ApiResult.Error -> {
-                    emit(Result.Error(result.code, result.message))
+                    emit(Result.Error(result.code, result.errorMessage()))
                 }
                 is ApiResult.Exception -> {
                     emit(Result.Failure(result.throwable))
@@ -48,7 +49,7 @@ class GitHubUserDetailsRepository @Inject constructor(
                     emit(Result.Success(list))
                 }
                 is ApiResult.Error -> {
-                    emit(Result.Error(result.code, result.message))
+                    emit(Result.Error(result.code, result.errorMessage()))
                 }
                 is ApiResult.Exception -> {
                     emit(Result.Failure(result.throwable))

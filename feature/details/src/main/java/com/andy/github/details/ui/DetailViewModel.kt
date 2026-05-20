@@ -74,7 +74,10 @@ class DetailViewModel @Inject constructor(
                 )
 
             userState is UserUiState.Error || repositoriesState is RepositoriesUiState.Error ->
-                DetailUiState.Error
+                DetailUiState.Error(
+                    (userState as? UserUiState.Error)?.message
+                        ?: (repositoriesState as? RepositoriesUiState.Error)?.message
+                )
 
             else -> DetailUiState.Loading
         }
@@ -94,31 +97,33 @@ class DetailViewModel @Inject constructor(
 
     private fun Result<User>.toUserUiState(): UserUiState = when (this) {
         is Result.Success -> UserUiState.Success(value)
-        is Result.Error, is Result.Failure -> UserUiState.Error
+        is Result.Error -> UserUiState.Error(message)
+        is Result.Failure -> UserUiState.Error(throwable?.message)
     }
 
     private fun Result<List<Repository>>.toRepositoriesUiState(): RepositoriesUiState =
         when (this) {
             is Result.Success -> RepositoriesUiState.Success(value)
-            is Result.Error, is Result.Failure -> RepositoriesUiState.Error
+            is Result.Error -> RepositoriesUiState.Error(message)
+            is Result.Failure -> RepositoriesUiState.Error(throwable?.message)
         }
 }
 
 sealed interface UserUiState {
     data class Success(val user: User) : UserUiState
-    data object Error : UserUiState
+    data class Error(val message: String?) : UserUiState
     data object Loading : UserUiState
 }
 
 sealed interface RepositoriesUiState {
     data class Success(val repositories: List<Repository>) : RepositoriesUiState
-    data object Error : RepositoriesUiState
+    data class Error(val message: String?) : RepositoriesUiState
     data object Loading : RepositoriesUiState
 }
 
 sealed interface DetailUiState {
     data class Success(val userWithRepositories: UserWithRepositories) : DetailUiState
-    data object Error : DetailUiState
+    data class Error(val message: String?) : DetailUiState
     data object Loading : DetailUiState
 }
 

@@ -30,8 +30,11 @@ fun DetailContent(
     }
 
     val uiState by detailViewModel.combinedUiState.collectAsState()
-    if (uiState is DetailUiState.Error) {
-        ErrorContent(onRetry = detailViewModel::retry)
+    (uiState as? DetailUiState.Error)?.let { errorState ->
+        ErrorContent(
+            message = errorState.message,
+            onRetry = detailViewModel::retry,
+        )
         return
     }
 

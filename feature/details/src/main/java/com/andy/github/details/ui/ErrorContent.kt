@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ErrorContent(
     innerPadding: PaddingValues = PaddingValues(),
+    message: String? = null,
     onRetry: () -> Unit = {}
 ) {
     Box(
@@ -37,13 +38,14 @@ fun ErrorContent(
                 .padding(20.dp),
             contentAlignment = Alignment.Center
         ) {
-            ErrorText()
+            ErrorText(message)
         }
     }
 }
 
 @Composable
-fun ErrorText() {
+fun ErrorText(message: String? = null) {
+    val headline = message?.takeIf { it.isNotBlank() } ?: "Whoops... Something went wrong."
     val annotatedText = buildAnnotatedString {
         withStyle(
             style = SpanStyle(
@@ -51,7 +53,7 @@ fun ErrorText() {
                 fontStyle = MaterialTheme.typography.displayMedium.fontStyle
             )
         ) {
-            append("Whoops... Something went wrong.\nPlease")
+            append("$headline\nPlease")
         }
         withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.error)) {
             append(" Click the screen ")
