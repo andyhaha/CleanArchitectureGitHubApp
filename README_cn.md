@@ -8,6 +8,17 @@
 
 这是一个 GitHub 用户搜索应用程序，用户可以在首页搜索 GitHub 用户并显示用户列表。用户可以点击列表中的某个用户，进入该用户的详细信息页面，展示用户的基本信息以及他们创建的仓库。
 
+## 应用截图
+
+参考 GitHub Primer 的明暗双主题，全部由 Jetpack Compose 构建。
+
+|   | 浅色 | 深色 |
+|:---:|:---:|:---:|
+| **首页 — 空状态**          | <img src="docs/screenshots/01-home-empty-light.png" width="260" alt="首页空状态"> | <img src="docs/screenshots/05-home-empty-dark.png" width="260" alt="首页空状态（深色）"> |
+| **搜索 — 历史记录**        | <img src="docs/screenshots/02-search-history-light.png" width="260" alt="搜索历史"> | <img src="docs/screenshots/06-search-history-dark.png" width="260" alt="搜索历史（深色）"> |
+| **搜索 — 结果列表**        | <img src="docs/screenshots/03-results-list-light.png" width="260" alt="结果列表"> | <img src="docs/screenshots/07-results-list-dark.png" width="260" alt="结果列表（深色）"> |
+| **用户详情（Jake Wharton）** | <img src="docs/screenshots/04-detail-light.png" width="260" alt="用户详情"> | <img src="docs/screenshots/08-detail-dark.png" width="260" alt="用户详情（深色）"> |
+
 ## 架构简介
 
 该项目遵循 **Clean Architecture** 原则，并采用 **MVVM**（Model-View-ViewModel）架构模式，以实现更好的模块化和关注点分离。通过将不同的业务逻辑与 UI 逻辑解耦，项目更容易进行测试和维护。

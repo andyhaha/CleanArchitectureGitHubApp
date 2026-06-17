@@ -9,6 +9,17 @@
 
 This is a GitHub user search application that allows users to search for GitHub users on the homepage and display a list of users. Users can click on a user in the list to enter their detailed information page, showcasing the user's basic information as well as the repositories they have created.
 
+## Screenshots
+
+GitHub Primer–inspired light & dark themes, built entirely with Jetpack Compose.
+
+|   | Light | Dark |
+|:---:|:---:|:---:|
+| **Home — empty state**       | <img src="docs/screenshots/01-home-empty-light.png" width="260" alt="Home empty state"> | <img src="docs/screenshots/05-home-empty-dark.png" width="260" alt="Home empty state (dark)"> |
+| **Search — recent history**  | <img src="docs/screenshots/02-search-history-light.png" width="260" alt="Search history"> | <img src="docs/screenshots/06-search-history-dark.png" width="260" alt="Search history (dark)"> |
+| **Search — results list**    | <img src="docs/screenshots/03-results-list-light.png" width="260" alt="Results list"> | <img src="docs/screenshots/07-results-list-dark.png" width="260" alt="Results list (dark)"> |
+| **User detail (Jake Wharton)** | <img src="docs/screenshots/04-detail-light.png" width="260" alt="User detail"> | <img src="docs/screenshots/08-detail-dark.png" width="260" alt="User detail (dark)"> |
+
 ## Architecture Introduction
 
 This project follows the **Clean Architecture** principles and adopts the **MVVM** (Model-View-ViewModel) architectural pattern to achieve better modularization and separation of concerns. By decoupling different business logic from UI logic, the project is easier to test and maintain.
