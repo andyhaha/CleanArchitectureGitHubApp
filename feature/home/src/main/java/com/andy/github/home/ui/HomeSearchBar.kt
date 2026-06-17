@@ -3,6 +3,7 @@ package com.andy.github.home.ui
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -25,7 +26,9 @@ import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.wear.compose.material.ContentAlpha
+import androidx.compose.ui.unit.dp
+
+private const val DisabledAlpha = 0.38f
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,19 +44,26 @@ fun HomeSearchBar(
         derivedStateOf { text.isNotBlank() }
     }
     val searchIconTint = if (isSearchEnabled) {
-        MaterialTheme.colorScheme.onSurface
+        MaterialTheme.colorScheme.primary
     } else {
-        MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled)
+        MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = DisabledAlpha)
     }
+
+    val barColors = SearchBarDefaults.colors(
+        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+    )
 
     Box(
         Modifier
             .fillMaxWidth()
-            .semantics { isTraversalGroup = true }) {
+            .semantics { isTraversalGroup = true }
+    ) {
         SearchBar(
             modifier = Modifier
                 .align(Alignment.TopCenter)
+                .padding(horizontal = if (expanded) 0.dp else 12.dp)
                 .semantics { traversalIndex = 0f },
+            colors = barColors,
             inputField = {
                 SearchBarDefaults.InputField(
                     query = text,
@@ -66,7 +76,13 @@ fun HomeSearchBar(
                     },
                     expanded = expanded,
                     onExpandedChange = { expanded = it },
-                    placeholder = { Text("Search users") },
+                    placeholder = {
+                        Text(
+                            text = "Search users",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    },
                     leadingIcon = {
                         Icon(
                             Icons.Default.Search,
@@ -84,6 +100,7 @@ fun HomeSearchBar(
                         if (expanded) {
                             Icon(
                                 imageVector = Icons.Default.Close,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                 contentDescription = "close icon",
                                 modifier = Modifier.clickable {
                                     if (isSearchEnabled) {

@@ -1,6 +1,7 @@
 package com.andy.github.details.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,10 +14,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CallSplit
+import androidx.compose.material.icons.automirrored.filled.CallSplit
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,117 +32,125 @@ import com.andy.github.details.domain.model.Repository
 
 @Composable
 fun RepositoryCard(repo: Repository, onClick: () -> Unit = {}) {
-    Card(
-        modifier = Modifier.fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .clickable {
-                onClick()
-            },
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 6.dp)
+            .background(
+                color = MaterialTheme.colorScheme.surface,
+                shape = RoundedCornerShape(8.dp),
+            )
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.outlineVariant,
+                shape = RoundedCornerShape(8.dp),
+            )
+            .clickable { onClick() }
+            .padding(16.dp),
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                // Repo name
                 Text(
                     modifier = Modifier.weight(1f),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     text = repo.formattedName(),
-                    color = Color.Blue,
-                    style = MaterialTheme.typography.titleMedium
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.titleMedium,
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                // Repo type (private or public)
-                Box(
-                    modifier = Modifier
-                        .background(Color.White, shape = CircleShape)
-                        .padding(4.dp)
-                ) {
-                    Text(
-                        text = repo.formattedRepoType(),
-                        color = Color.Gray,
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
+                RepoTypeBadge(repo.formattedRepoType())
             }
+
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Repo description
             Text(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 text = repo.formattedDescription(),
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.Gray
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Stats: Language, Stars, Forks
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                // Language
                 LanguageBadge(repo.language ?: "Unknown")
-
-                // Stars
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Default.Star,
-                        contentDescription = "Star",
-                        tint = Color.Gray
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = repo.formattedStarsCount(), color = Color.Gray)
-                }
-
-                // Forks
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Default.CallSplit, // Fork icon
-                        contentDescription = "Fork",
-                        tint = Color.Gray
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = repo.formattedForksCount(), color = Color.Gray)
-                }
+                MetricChip(
+                    icon = Icons.Default.Star,
+                    text = repo.formattedStarsCount(),
+                )
+                MetricChip(
+                    icon = Icons.AutoMirrored.Filled.CallSplit,
+                    text = repo.formattedForksCount(),
+                )
             }
         }
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun PreviewRepoCard() {
-    RepositoryCard(
-        repo = Repository(
-            name = "Spoon-Knife",
-            language = "Java",
-            starsCount = 12600,
-            description = "This repo is for demonstration purposes only.",
-            githubUrl = "https://github.com/octocat/Spoon-Knife",
-            forksCount = 14600,
-            isPrivate = false
+private fun RepoTypeBadge(type: String) {
+    Box(
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.outline,
+                shape = RoundedCornerShape(50),
+            )
+            .padding(horizontal = 8.dp, vertical = 2.dp),
+    ) {
+        Text(
+            text = type,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.labelSmall,
         )
-    )
+    }
+}
+
+@Composable
+private fun MetricChip(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    text: String,
+) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.size(16.dp),
+        )
+        Spacer(modifier = Modifier.width(4.dp))
+        Text(
+            text = text,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.labelMedium,
+        )
+    }
 }
 
 @Composable
 fun LanguageBadge(language: String) {
     val languageColor = getLanguageColor(language)
-
     Row(verticalAlignment = Alignment.CenterVertically) {
         Box(
             modifier = Modifier
-                .size(12.dp)
-                .background(languageColor, shape = CircleShape)
+                .size(10.dp)
+                .background(languageColor, shape = CircleShape),
         )
-        Spacer(modifier = Modifier.width(4.dp))
-        Text(text = language, color = Color.Gray)
+        Spacer(modifier = Modifier.width(6.dp))
+        Text(
+            text = language,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.labelMedium,
+        )
     }
 }
 
@@ -162,6 +171,24 @@ fun getLanguageColor(language: String): Color {
         "TypeScript" -> Color(0xFF2B7489)
         "C#" -> Color(0xFF178600)
         "Shell" -> Color(0xFF89E051)
-        else -> Color.Gray // Default color for unlisted languages
+        "Rust" -> Color(0xFFDEA584)
+        "Dart" -> Color(0xFF00B4AB)
+        else -> Color.Gray
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewRepoCard() {
+    RepositoryCard(
+        repo = Repository(
+            name = "Spoon-Knife",
+            language = "Kotlin",
+            starsCount = 12600,
+            description = "This repo is for demonstration purposes only.",
+            githubUrl = "https://github.com/octocat/Spoon-Knife",
+            forksCount = 14600,
+            isPrivate = false,
+        )
+    )
 }

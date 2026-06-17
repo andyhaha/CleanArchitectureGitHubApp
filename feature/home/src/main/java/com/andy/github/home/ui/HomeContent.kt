@@ -1,7 +1,7 @@
 package com.andy.github.home.ui
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.SnackbarDuration
@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.andy.github.home.domain.model.SimpleUser
+import com.andy.github.home.ui.components.LoadError
 import com.andy.github.home.ui.components.LoadingItem
 import com.andy.github.home.ui.components.NoData
 import com.andy.github.home.ui.components.NoMoreDataItem
@@ -24,53 +25,47 @@ fun HomeContent(
     items: LazyPagingItems<SimpleUser>,
     onSearchListItemClick: (SimpleUser) -> Unit = {}
 ) {
-    when {
-        items.loadState.refresh is LoadState.Error -> {
-            val error = (items.loadState.refresh as LoadState.Error).error
-            LaunchedEffect(error) {
-                snackbarHostState.showSnackbar(
-                    message = error.message ?: "Unknown error!",
-                    actionLabel = "Cancel",
-                    duration = SnackbarDuration.Short
-                )
-            }
-        }
+    val refreshState = items.loadState.refresh
+    val appendState = items.loadState.append
 
-        items.loadState.append is LoadState.Error -> {
-            val error = (items.loadState.append as LoadState.Error).error
-            LaunchedEffect(error) {
-                snackbarHostState.showSnackbar(
-                    message = error.message ?: "Unknown error!",
-                    actionLabel = "Cancel",
-                    duration = SnackbarDuration.Short
-                )
-            }
+    if (refreshState is LoadState.Error && items.itemCount == 0) {
+        LoadError(
+            innerPadding = innerPadding,
+            message = refreshState.error.message,
+            onRetry = { items.retry() },
+        )
+        return
+    }
+
+    if (appendState is LoadState.Error) {
+        LaunchedEffect(appendState.error) {
+            snackbarHostState.showSnackbar(
+                message = appendState.error.message ?: "Unknown error!",
+                actionLabel = "Cancel",
+                duration = SnackbarDuration.Short,
+            )
         }
     }
 
-    if (items.itemCount == 0) {
-        NoData()
+    if (items.itemCount == 0 && refreshState !is LoadState.Loading) {
+        NoData(innerPadding)
         return
     }
 
     LazyColumn(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(innerPadding),
     ) {
         items(count = items.itemCount) { index ->
-            val item = items[index]
-            item?.let {
-                UserItem(it, onSearchListItemClick)
-            }
+            items[index]?.let { UserItem(it, onSearchListItemClick) }
         }
         item {
             when {
-                items.loadState.append is LoadState.Loading -> {
+                appendState is LoadState.Loading || refreshState is LoadState.Loading -> {
                     LoadingItem()
                 }
-
-                items.loadState.append.endOfPaginationReached -> {
+                appendState.endOfPaginationReached && items.itemCount > 0 -> {
                     NoMoreDataItem()
                 }
             }
@@ -81,5 +76,4 @@ fun HomeContent(
 @Preview(showBackground = true)
 @Composable
 fun PreviewHomeContent() {
-//    HomeContent(PaddingValues())
 }

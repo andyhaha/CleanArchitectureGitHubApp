@@ -1,53 +1,89 @@
 package com.github.app.ui.theme
 
 import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+private val LightGitHubColorScheme = lightColorScheme(
+    primary = GhLightAccent,
+    onPrimary = Color.White,
+    primaryContainer = GhLightAccentSubtle,
+    onPrimaryContainer = GhLightAccent,
+    secondary = GhLightSuccessEmphasis,
+    onSecondary = Color.White,
+    secondaryContainer = Color(0xFFDAFBE1),
+    onSecondaryContainer = GhLightSuccess,
+    tertiary = GhLightAttention,
+    onTertiary = Color.White,
+    background = GhLightCanvas,
+    onBackground = GhLightFg,
+    surface = GhLightCanvas,
+    onSurface = GhLightFg,
+    surfaceVariant = GhLightCanvasSubtle,
+    onSurfaceVariant = GhLightFgMuted,
+    surfaceContainerLowest = GhLightCanvas,
+    surfaceContainerLow = GhLightCanvasSubtle,
+    surfaceContainer = GhLightCanvasSubtle,
+    surfaceContainerHigh = GhLightCanvasInset,
+    surfaceContainerHighest = GhLightCanvasInset,
+    outline = GhLightBorder,
+    outlineVariant = GhLightBorderMuted,
+    error = GhLightDanger,
+    onError = Color.White,
+    scrim = Color(0x66000000),
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
+private val DarkGitHubColorScheme = darkColorScheme(
+    primary = GhDarkAccent,
     onPrimary = Color.White,
+    primaryContainer = GhDarkAccentEmphasis,
+    onPrimaryContainer = Color.White,
+    secondary = GhDarkSuccess,
     onSecondary = Color.White,
+    secondaryContainer = Color(0xFF0F2A1A),
+    onSecondaryContainer = GhDarkSuccess,
+    tertiary = GhDarkAttention,
     onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    background = GhDarkCanvas,
+    onBackground = GhDarkFg,
+    surface = GhDarkCanvas,
+    onSurface = GhDarkFg,
+    surfaceVariant = GhDarkCanvasSubtle,
+    onSurfaceVariant = GhDarkFgMuted,
+    surfaceContainerLowest = GhDarkCanvasInset,
+    surfaceContainerLow = GhDarkCanvasSubtle,
+    surfaceContainer = GhDarkCanvasSubtle,
+    surfaceContainerHigh = GhDarkBorderMuted,
+    surfaceContainerHighest = GhDarkBorder,
+    outline = GhDarkBorder,
+    outlineVariant = GhDarkBorderMuted,
+    error = GhDarkDanger,
+    onError = Color.White,
+    scrim = Color(0x99000000),
 )
 
 @Composable
 fun GitHubAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+    val colorScheme = if (darkTheme) DarkGitHubColorScheme else LightGitHubColorScheme
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as Activity).window
+            val controller = WindowCompat.getInsetsController(window, view)
+            controller.isAppearanceLightStatusBars = !darkTheme
+            controller.isAppearanceLightNavigationBars = !darkTheme
+        }
     }
 
     MaterialTheme(
