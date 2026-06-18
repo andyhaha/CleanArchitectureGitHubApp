@@ -1,0 +1,31 @@
+信息: Constructing runner from config.
+信息: Configuring Android Instrumentation driver: android_instrumentation_runtime {
+  instrumentation_info {
+    app_package: "com.andy.framework.test"
+    test_package: "com.andy.framework.test"
+    test_runner_class: "androidx.test.runner.AndroidJUnitRunner"
+  }
+  instrumentation_args {
+    args_map {
+      key: "additionalTestOutputDir"
+      value: "/sdcard/Android/media/com.andy.framework.test/additional_test_output"
+    }
+  }
+}
+am_instrument_timeout: 31536000
+
+信息: Configuring AndroidTestApkInstallerPlugin: apks_to_install {
+  apk_paths: "/Users/gejinpeng/AndroidStudioProjects/GitHubApp/libs/framework/build/outputs/apk/androidTest/debug/framework-debug-androidTest.apk"
+  install_options {
+  }
+  uninstall_after_test: true
+}
+
+信息: No installables found in test fixture. Nothing to install.
+信息: Installing [/Users/gejinpeng/AndroidStudioProjects/GitHubApp/libs/framework/build/outputs/apk/androidTest/debug/framework-debug-androidTest.apk] on device emulator-5554.
+信息: Start logcat streaming.
+信息: Running Android Instrumentation driver.
+信息: Copying files from device to host: /sdcard/Android/media/com.andy.framework.test/additional_test_output to /Users/gejinpeng/AndroidStudioProjects/GitHubApp/libs/framework/build/outputs/connected_android_test_additional_output/debugAndroidTest/connected/Pixel_6_Pro_API_31(AVD) - 12
+信息: Stop logcat streaming.
+信息: Uninstalling com.andy.framework.test for device emulator-5554.
+信息: Execute com.andy.framework.ExampleInstrumentedTest.useAppContext: PASSED

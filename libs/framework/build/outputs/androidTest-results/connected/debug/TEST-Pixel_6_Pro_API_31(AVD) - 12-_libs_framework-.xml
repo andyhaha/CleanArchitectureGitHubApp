@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.andy.framework.ExampleInstrumentedTest" tests="1" failures="0" errors="0" skipped="0" time="0.282" timestamp="2024-12-07T03:15:15" hostname="localhost">
+  <properties>
+    <property name="device" value="Pixel_6_Pro_API_31(AVD) - 12" />
+    <property name="flavor" value="" />
+    <property name="project" value=":libs:framework" />
+  </properties>
+  <testcase name="useAppContext" classname="com.andy.framework.ExampleInstrumentedTest" time="0.008" />
+</testsuite>

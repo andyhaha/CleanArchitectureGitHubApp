@@ -21,7 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "CleanArchitectureGitHubApp"
 include(":app")
-include(":libs:framework")
 include(":libs:common")
 include(":libs:network")
 include(":feature:home")

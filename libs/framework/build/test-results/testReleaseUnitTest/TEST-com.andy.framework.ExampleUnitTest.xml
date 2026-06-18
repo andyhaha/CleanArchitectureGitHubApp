@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.andy.framework.ExampleUnitTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-12-07T03:10:50" hostname="gejinpengdeMacBook-Pro.local" time="0.002">
+  <properties/>
+  <testcase name="addition_isCorrect" classname="com.andy.framework.ExampleUnitTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

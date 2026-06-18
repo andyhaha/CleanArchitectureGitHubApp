@@ -1,0 +1,9 @@
+com.andy.framework
+anim slid_in_from_bottom
+anim slid_in_from_left
+anim slid_in_from_right
+anim slid_in_from_top
+anim slid_out_to_bottom
+anim slid_out_to_left
+anim slid_out_to_right
+anim slid_out_to_top

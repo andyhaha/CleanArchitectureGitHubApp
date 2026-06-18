@@ -1,0 +1,2 @@
+12-07 12:15:13.180 26147 26164 I TestRunner: started: useAppContext(com.andy.framework.ExampleInstrumentedTest)
+12-07 12:15:13.183 26147 26164 I TestRunner: finished: useAppContext(com.andy.framework.ExampleInstrumentedTest)
