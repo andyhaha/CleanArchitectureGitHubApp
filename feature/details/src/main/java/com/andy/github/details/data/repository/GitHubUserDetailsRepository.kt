@@ -6,9 +6,8 @@ import com.andy.github.details.data.remote.DetailsApiService
 import com.andy.github.details.domain.model.Repository
 import com.andy.github.details.domain.model.User
 import com.andy.github.details.domain.repository.UserDetailsRepository
-import com.andy.network.common.errorMessage
 import com.andy.network.data.ApiResult
-import com.andy.network.domain.Result
+import com.andy.network.data.map
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -22,39 +21,16 @@ class GitHubUserDetailsRepository @Inject constructor(
     private val dispatcher: CoroutineDispatcher,
 ) : UserDetailsRepository {
 
-    override fun getUser(username: String): Flow<Result<User>> {
+    override fun getUser(username: String): Flow<ApiResult<User>> {
         return flow {
-            when (val result = apiService.getUser(username)) {
-                is ApiResult.Success -> {
-                    emit(Result.Success(result.data.toDomainUser()))
-                }
-                is ApiResult.Error -> {
-                    emit(Result.Error(result.code, result.errorMessage()))
-                }
-                is ApiResult.Exception -> {
-                    emit(Result.Failure(result.throwable))
-                }
-            }
+            emit(apiService.getUser(username).map { it.toDomainUser() })
         }.flowOn(dispatcher)
     }
 
-    override fun getUserRepositories(username: String): Flow<Result<List<Repository>>> {
+    override fun getUserRepositories(username: String): Flow<ApiResult<List<Repository>>> {
         return flow {
             val query = "user:$username"
-            when (val result = apiService.getUserRepositories(query)) {
-                is ApiResult.Success -> {
-                    val list = result.data.items.map {
-                        it.toDomainModel()
-                    }
-                    emit(Result.Success(list))
-                }
-                is ApiResult.Error -> {
-                    emit(Result.Error(result.code, result.errorMessage()))
-                }
-                is ApiResult.Exception -> {
-                    emit(Result.Failure(result.throwable))
-                }
-            }
+            emit(apiService.getUserRepositories(query).map { it.items.map { item -> item.toDomainModel() } })
         }.flowOn(dispatcher)
     }
 }

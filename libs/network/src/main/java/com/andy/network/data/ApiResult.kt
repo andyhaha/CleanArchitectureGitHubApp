@@ -18,3 +18,14 @@ sealed interface ApiResult<T> {
      */
     class Exception<T>(val throwable: Throwable) : ApiResult<T>
 }
+
+/**
+ * Transforms the [ApiResult.Success] payload while passing [ApiResult.Error] and
+ * [ApiResult.Exception] through untouched. Lets repositories map a network DTO into
+ * a domain model without repeating the when-branches for the failure cases.
+ */
+inline fun <T, R> ApiResult<T>.map(transform: (T) -> R): ApiResult<R> = when (this) {
+    is ApiResult.Success -> ApiResult.Success(transform(data))
+    is ApiResult.Error -> ApiResult.Error(code, message)
+    is ApiResult.Exception -> ApiResult.Exception(throwable)
+}

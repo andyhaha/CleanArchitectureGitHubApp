@@ -6,7 +6,8 @@ import com.andy.common.UiState
 import com.andy.github.details.domain.model.Repository
 import com.andy.github.details.domain.model.User
 import com.andy.github.details.domain.repository.UserDetailsRepository
-import com.andy.network.domain.Result
+import com.andy.network.common.errorMessage
+import com.andy.network.data.ApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BufferOverflow
@@ -96,10 +97,10 @@ class DetailViewModel @Inject constructor(
         retryTrigger.tryEmit(Unit)
     }
 
-    private fun <T> Result<T>.toUiState(): UiState<T> = when (this) {
-        is Result.Success -> UiState.Success(value)
-        is Result.Error -> UiState.Error(message)
-        is Result.Failure -> UiState.Error(throwable?.message)
+    private fun <T> ApiResult<T>.toUiState(): UiState<T> = when (this) {
+        is ApiResult.Success -> UiState.Success(data)
+        is ApiResult.Error -> UiState.Error(errorMessage())
+        is ApiResult.Exception -> UiState.Error(throwable.message)
     }
 }
 
