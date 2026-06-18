@@ -9,11 +9,15 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.andy.github.home.domain.model.SimpleUser
 import com.andy.github.home.ui.components.LoadError
+import com.andy.network.R
+import com.andy.network.common.ApiException
 import com.andy.github.home.ui.components.LoadingItem
 import com.andy.github.home.ui.components.NoData
 import com.andy.github.home.ui.components.NoMoreDataItem
@@ -25,22 +29,30 @@ fun HomeContent(
     items: LazyPagingItems<SimpleUser>,
     onSearchListItemClick: (SimpleUser) -> Unit = {}
 ) {
+    val context = LocalContext.current
     val refreshState = items.loadState.refresh
     val appendState = items.loadState.append
 
     if (refreshState is LoadState.Error && items.itemCount == 0) {
+        val error = refreshState.error
+        val message = (error as? ApiException)?.messageResId?.let { stringResource(it) }
+            ?: error.message
         LoadError(
             innerPadding = innerPadding,
-            message = refreshState.error.message,
+            message = message,
             onRetry = { items.retry() },
         )
         return
     }
 
     if (appendState is LoadState.Error) {
-        LaunchedEffect(appendState.error) {
+        val error = appendState.error
+        LaunchedEffect(error) {
+            val message = (error as? ApiException)?.messageResId?.let { context.getString(it) }
+                ?: error.message
+                ?: context.getString(R.string.error_unknown)
             snackbarHostState.showSnackbar(
-                message = appendState.error.message ?: "Unknown error!",
+                message = message,
                 actionLabel = "Cancel",
                 duration = SnackbarDuration.Short,
             )

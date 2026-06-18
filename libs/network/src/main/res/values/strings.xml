@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_unauthorized">Unauthorized!</string>
+    <string name="error_rate_limit">Rate limit exceeded!</string>
+    <string name="error_not_found">Not found!</string>
+    <string name="error_api_limit">Only the first 1000 search results are available!</string>
+    <string name="error_too_many_requests">Too many requests!</string>
+    <string name="error_unknown">Unknown error!</string>
+</resources>

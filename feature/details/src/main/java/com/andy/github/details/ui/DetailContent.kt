@@ -17,6 +17,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.andy.common.UiState
@@ -33,9 +34,10 @@ fun DetailContent(
 
     val uiState by detailViewModel.combinedUiState.collectAsState()
     (uiState as? UiState.Error)?.let { errorState ->
+        val message = errorState.messageResId?.let { stringResource(it) } ?: errorState.message
         ErrorContent(
             innerPadding = innerPadding,
-            message = errorState.message,
+            message = message,
             onRetry = detailViewModel::retry,
         )
         return

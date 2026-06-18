@@ -6,7 +6,7 @@ import com.andy.common.UiState
 import com.andy.github.details.domain.model.Repository
 import com.andy.github.details.domain.model.User
 import com.andy.github.details.domain.repository.UserDetailsRepository
-import com.andy.network.common.errorMessage
+import com.andy.network.common.messageResId
 import com.andy.network.data.ApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -75,11 +75,8 @@ class DetailViewModel @Inject constructor(
                     UserWithRepositories(userState.data, repositoriesState.data)
                 )
 
-            userState is UiState.Error || repositoriesState is UiState.Error ->
-                UiState.Error(
-                    (userState as? UiState.Error)?.message
-                        ?: (repositoriesState as? UiState.Error)?.message
-                )
+            userState is UiState.Error -> userState
+            repositoriesState is UiState.Error -> repositoriesState
 
             else -> UiState.Loading
         }
@@ -99,8 +96,8 @@ class DetailViewModel @Inject constructor(
 
     private fun <T> ApiResult<T>.toUiState(): UiState<T> = when (this) {
         is ApiResult.Success -> UiState.Success(data)
-        is ApiResult.Error -> UiState.Error(errorMessage())
-        is ApiResult.Exception -> UiState.Error(throwable.message)
+        is ApiResult.Error -> UiState.Error(message = message, messageResId = messageResId())
+        is ApiResult.Exception -> UiState.Error(message = throwable.message)
     }
 }
 

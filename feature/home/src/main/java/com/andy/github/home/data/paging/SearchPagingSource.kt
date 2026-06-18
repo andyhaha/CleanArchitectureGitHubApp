@@ -6,11 +6,10 @@ import androidx.paging.PagingState
 import com.andy.github.home.data.model.toDomainUser
 import com.andy.github.home.data.remote.HomeApiService
 import com.andy.github.home.domain.model.SimpleUser
+import com.andy.network.common.ApiException
 import com.andy.network.common.Constants
-import com.andy.network.common.errorMessage
+import com.andy.network.common.messageResId
 import com.andy.network.data.ApiResult
-import retrofit2.HttpException
-import java.io.IOException
 
 class SearchPagingSource(
     private val apiService: HomeApiService,
@@ -19,40 +18,35 @@ class SearchPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SimpleUser> {
         val page = params.key ?: 1
-        return try {
-            val result = apiService.searchUserRepositories(
-                query = query,
-                perPage = Constants.PAGE_SIZE,
-                page = page
-            )
-            when (result) {
-                is ApiResult.Success -> {
-                    val list = result.data.items.map {
-                        it.toDomainUser()
-                    }
-                    return LoadResult.Page(
-                        data = list,
-                        prevKey = if (page == 1) null else page - 1,
-                        nextKey = if (list.isEmpty()) null else page + 1
-                    )
+        return when (val result = apiService.searchUserRepositories(
+            query = query,
+            perPage = Constants.PAGE_SIZE,
+            page = page
+        )) {
+            is ApiResult.Success -> {
+                val list = result.data.items.map {
+                    it.toDomainUser()
                 }
-
-                is ApiResult.Error -> {
-                    Log.e(
-                        "SearchPagingSource", "error code = ${result.code}, " +
-                                "message = ${result.message}"
-                    )
-                    return LoadResult.Error(Throwable(result.errorMessage()))
-                }
-
-                is ApiResult.Exception -> {
-                    return LoadResult.Error(Throwable(result.throwable))
-                }
+                LoadResult.Page(
+                    data = list,
+                    prevKey = if (page == 1) null else page - 1,
+                    nextKey = if (list.isEmpty()) null else page + 1
+                )
             }
-        } catch (exception: IOException) {
-            LoadResult.Error(exception)
-        } catch (exception: HttpException) {
-            LoadResult.Error(exception)
+
+            is ApiResult.Error -> {
+                Log.e(
+                    "SearchPagingSource", "error code = ${result.code}, " +
+                            "message = ${result.message}"
+                )
+                LoadResult.Error(
+                    ApiException(messageResId = result.messageResId(), message = result.message)
+                )
+            }
+
+            is ApiResult.Exception -> {
+                LoadResult.Error(result.throwable)
+            }
         }
     }
 
