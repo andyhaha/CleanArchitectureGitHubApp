@@ -16,23 +16,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.andy.common.UiState
 
 @Composable
 fun SearchHistory(
     onItemClick: (UiSearchItem) -> Unit = {},
     delete: (UiSearchItem) -> Unit = {},
-    state: SearchUiState = SearchUiState.Loading
+    state: UiState<List<UiSearchItem>> = UiState.Loading
 ) {
     when (state) {
-        is SearchUiState.Success -> {
+        is UiState.Success -> {
             SearchHistoryList(
                 onItemClick = onItemClick,
                 delete = delete,
-                historyItems = state.historyItems,
+                historyItems = state.data,
             )
         }
 
-        is SearchUiState.Error -> {
+        is UiState.Error -> {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -40,14 +41,14 @@ fun SearchHistory(
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
-                    text = state.message,
+                    text = state.message ?: "Unknown Error",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.error,
                 )
             }
         }
 
-        is SearchUiState.Loading -> {
+        is UiState.Loading -> {
             Column(
                 modifier = Modifier
                     .fillMaxSize()

@@ -1,6 +1,7 @@
 package com.andy.github.home.ui
 
 import androidx.compose.ui.test.*
+import com.andy.common.UiState
 import androidx.compose.ui.test.junit4.createComposeRule
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
@@ -14,7 +15,7 @@ class SearchHistoryTest {
     @Test
     fun testLoadingState() {
         composeTestRule.setContent {
-            SearchHistory(state = SearchUiState.Loading)
+            SearchHistory(state = UiState.Loading)
         }
 
         // Verify that the "Loading..." text is shown when in loading state
@@ -29,7 +30,7 @@ class SearchHistoryTest {
         )
 
         composeTestRule.setContent {
-            SearchHistory(state = SearchUiState.Success(sampleHistoryItems))
+            SearchHistory(state = UiState.Success(sampleHistoryItems))
         }
 
         // Verify that items "Item 1" and "Item 2" are displayed
@@ -41,7 +42,7 @@ class SearchHistoryTest {
     fun testErrorState() {
         // Assuming the error state is handled to display an error message or UI
         composeTestRule.setContent {
-            SearchHistory(state = SearchUiState.Error("An error occurred"))
+            SearchHistory(state = UiState.Error("An error occurred"))
         }
 
         // Verify if the error message appears in the UI
@@ -58,7 +59,7 @@ class SearchHistoryTest {
         val onItemClick: (UiSearchItem) -> Unit = { clickedItem = it }
 
         composeTestRule.setContent {
-            SearchHistory(state = SearchUiState.Success(sampleHistoryItems), onItemClick = onItemClick)
+            SearchHistory(state = UiState.Success(sampleHistoryItems), onItemClick = onItemClick)
         }
 
         composeTestRule.onNodeWithText("Item 1").performClick()
@@ -78,7 +79,7 @@ class SearchHistoryTest {
         val delete: (UiSearchItem) -> Unit = { deletedItem = it }
 
         composeTestRule.setContent {
-            SearchHistory(state = SearchUiState.Success(sampleHistoryItems), delete = delete)
+            SearchHistory(state = UiState.Success(sampleHistoryItems), delete = delete)
         }
 
         composeTestRule.onNodeWithContentDescription("Right Icon").performClick()

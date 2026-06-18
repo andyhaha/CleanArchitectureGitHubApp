@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import com.andy.common.UiState
 import com.andy.github.home.domain.model.SearchItem
 import com.andy.github.home.domain.model.toUiSearchItem
 import com.google.common.truth.Truth.assertThat
@@ -57,7 +58,7 @@ class HomeSearchBarTest {
 
         composeTestRule.setContent {
             HomeSearchBar(
-                searchUiState = SearchUiState.Success(listOf(testSearchItem.toUiSearchItem())),
+                searchUiState = UiState.Success(listOf(testSearchItem.toUiSearchItem())),
                 onSearch = { item ->
                     searchTriggered = (item == testSearchItem.toUiSearchItem())
                 }

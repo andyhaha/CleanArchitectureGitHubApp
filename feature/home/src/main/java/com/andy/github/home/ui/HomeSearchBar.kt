@@ -27,13 +27,14 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.andy.common.UiState
 
 private const val DisabledAlpha = 0.38f
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeSearchBar(
-    searchUiState: SearchUiState = SearchUiState.Loading,
+    searchUiState: UiState<List<UiSearchItem>> = UiState.Loading,
     onSearch: (UiSearchItem) -> Unit = {},
     delete: (UiSearchItem) -> Unit = {}
 ) {

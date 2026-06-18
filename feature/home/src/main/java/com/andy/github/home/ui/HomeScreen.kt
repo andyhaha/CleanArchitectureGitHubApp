@@ -14,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.andy.common.UiState
 import com.andy.github.home.domain.model.SimpleUser
 
 @Composable
@@ -23,7 +24,7 @@ fun HomeScreen(
     onSearchListItemClick: (SimpleUser) -> Unit = {}
 ) {
     var searchText by remember { mutableStateOf("") }
-    val historyItemsState: SearchUiState by searchHistoryViewModel.viewState.collectAsStateWithLifecycle()
+    val historyItemsState: UiState<List<UiSearchItem>> by searchHistoryViewModel.viewState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,

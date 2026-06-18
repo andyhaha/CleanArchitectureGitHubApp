@@ -2,6 +2,7 @@ package com.andy.github.details.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.andy.common.UiState
 import com.andy.github.details.domain.model.Repository
 import com.andy.github.details.domain.model.User
 import com.andy.github.details.domain.repository.UserDetailsRepository
@@ -39,52 +40,52 @@ class DetailViewModel @Inject constructor(
         retryTrigger.onStart { emit(Unit) },
     ) { name, _ -> name }
 
-    private val userUiState: StateFlow<UserUiState> = refreshSignal
+    private val userUiState: StateFlow<UiState<User>> = refreshSignal
         .flatMapLatest { name ->
             userRepository.getUser(name)
-                .map { it.toUserUiState() }
-                .onStart { emit(UserUiState.Loading) }
+                .map { it.toUiState() }
+                .onStart { emit(UiState.Loading) }
         }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = UserUiState.Loading,
+            initialValue = UiState.Loading,
         )
 
-    private val repositoriesUiState: StateFlow<RepositoriesUiState> = refreshSignal
+    private val repositoriesUiState: StateFlow<UiState<List<Repository>>> = refreshSignal
         .flatMapLatest { name ->
             userRepository.getUserRepositories(name)
-                .map { it.toRepositoriesUiState() }
-                .onStart { emit(RepositoriesUiState.Loading) }
+                .map { it.toUiState() }
+                .onStart { emit(UiState.Loading) }
         }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = RepositoriesUiState.Loading,
+            initialValue = UiState.Loading,
         )
 
-    val combinedUiState: StateFlow<DetailUiState> = combine(
+    val combinedUiState: StateFlow<UiState<UserWithRepositories>> = combine(
         userUiState,
         repositoriesUiState,
     ) { userState, repositoriesState ->
         when {
-            userState is UserUiState.Success && repositoriesState is RepositoriesUiState.Success ->
-                DetailUiState.Success(
-                    UserWithRepositories(userState.user, repositoriesState.repositories)
+            userState is UiState.Success && repositoriesState is UiState.Success ->
+                UiState.Success(
+                    UserWithRepositories(userState.data, repositoriesState.data)
                 )
 
-            userState is UserUiState.Error || repositoriesState is RepositoriesUiState.Error ->
-                DetailUiState.Error(
-                    (userState as? UserUiState.Error)?.message
-                        ?: (repositoriesState as? RepositoriesUiState.Error)?.message
+            userState is UiState.Error || repositoriesState is UiState.Error ->
+                UiState.Error(
+                    (userState as? UiState.Error)?.message
+                        ?: (repositoriesState as? UiState.Error)?.message
                 )
 
-            else -> DetailUiState.Loading
+            else -> UiState.Loading
         }
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = DetailUiState.Loading,
+        initialValue = UiState.Loading,
     )
 
     fun load(username: String) {
@@ -95,36 +96,11 @@ class DetailViewModel @Inject constructor(
         retryTrigger.tryEmit(Unit)
     }
 
-    private fun Result<User>.toUserUiState(): UserUiState = when (this) {
-        is Result.Success -> UserUiState.Success(value)
-        is Result.Error -> UserUiState.Error(message)
-        is Result.Failure -> UserUiState.Error(throwable?.message)
+    private fun <T> Result<T>.toUiState(): UiState<T> = when (this) {
+        is Result.Success -> UiState.Success(value)
+        is Result.Error -> UiState.Error(message)
+        is Result.Failure -> UiState.Error(throwable?.message)
     }
-
-    private fun Result<List<Repository>>.toRepositoriesUiState(): RepositoriesUiState =
-        when (this) {
-            is Result.Success -> RepositoriesUiState.Success(value)
-            is Result.Error -> RepositoriesUiState.Error(message)
-            is Result.Failure -> RepositoriesUiState.Error(throwable?.message)
-        }
-}
-
-sealed interface UserUiState {
-    data class Success(val user: User) : UserUiState
-    data class Error(val message: String?) : UserUiState
-    data object Loading : UserUiState
-}
-
-sealed interface RepositoriesUiState {
-    data class Success(val repositories: List<Repository>) : RepositoriesUiState
-    data class Error(val message: String?) : RepositoriesUiState
-    data object Loading : RepositoriesUiState
-}
-
-sealed interface DetailUiState {
-    data class Success(val userWithRepositories: UserWithRepositories) : DetailUiState
-    data class Error(val message: String?) : DetailUiState
-    data object Loading : DetailUiState
 }
 
 data class UserWithRepositories(

@@ -2,6 +2,7 @@ package com.andy.github.home.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.andy.common.UiState
 import com.andy.github.home.domain.model.SearchItem
 import com.andy.github.home.domain.model.toUiSearchItem
 import com.andy.github.home.domain.repository.SearchHistoryRepository
@@ -19,22 +20,17 @@ class SearchHistoryViewModel @Inject constructor(
     private val searchHistoryRepository: SearchHistoryRepository
 ) : ViewModel() {
 
-    val viewState: StateFlow<SearchUiState> = searchHistoryRepository.getAllSearchRecords()
-        .map { list ->
-            SearchUiState.Success(
-                historyItems = list.map {
-                    it.toUiSearchItem()
-                }
+    val viewState: StateFlow<UiState<List<UiSearchItem>>> =
+        searchHistoryRepository.getAllSearchRecords()
+            .map<List<SearchItem>, UiState<List<UiSearchItem>>> { list ->
+                UiState.Success(list.map { it.toUiSearchItem() })
+            }
+            .catch { emit(UiState.Error(it.message ?: "Unknown Error")) }
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(),
+                UiState.Loading
             )
-        }
-        .catch {
-            SearchUiState.Error(it.message ?: "Unknown Error")
-        }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(),
-            SearchUiState.Loading
-        )
 
     fun addHistoryItem(content: String) {
         viewModelScope.launch {
@@ -57,12 +53,6 @@ class SearchHistoryViewModel @Inject constructor(
             searchHistoryRepository.deleteAllSearchRecords()
         }
     }
-}
-
-sealed interface SearchUiState {
-    data class Success(val historyItems: List<UiSearchItem>) : SearchUiState
-    data class Error(val message: String) : SearchUiState
-    data object Loading : SearchUiState
 }
 
 data class UiSearchItem(

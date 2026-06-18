@@ -1,5 +1,6 @@
 package com.andy.github.home.ui
 
+import com.andy.common.UiState
 import com.andy.github.home.data.FakeSearchHistoryRepository
 import com.andy.github.home.domain.model.SearchItem
 import com.google.common.truth.Truth.assertThat
@@ -34,17 +35,17 @@ class SearchHistoryViewModelTest {
 
     // Helper to assert the Loading state
     private suspend fun assertLoadingState() {
-        val loadingState = viewModel.viewState.first { it is SearchUiState.Loading }
+        val loadingState = viewModel.viewState.first { it is UiState.Loading }
         assertThat(loadingState)
-            .isEqualTo(SearchUiState.Loading)
+            .isEqualTo(UiState.Loading)
     }
 
     // Helper to assert the Success state with expected items
     private suspend fun assertSuccessState(expectedItems: List<SearchItem>) {
         val successState =
-            viewModel.viewState.first { it is SearchUiState.Success } as SearchUiState.Success
+            viewModel.viewState.first { it is UiState.Success } as UiState.Success
         assertThat(
-            successState.historyItems.map { it.toDomainSearchItem() })
+            successState.data.map { it.toDomainSearchItem() })
             .isEqualTo(expectedItems)
     }
 

@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.andy.common.UiState
 
 @Composable
 fun DetailContent(
@@ -31,7 +32,7 @@ fun DetailContent(
     }
 
     val uiState by detailViewModel.combinedUiState.collectAsState()
-    (uiState as? DetailUiState.Error)?.let { errorState ->
+    (uiState as? UiState.Error)?.let { errorState ->
         ErrorContent(
             innerPadding = innerPadding,
             message = errorState.message,
@@ -46,12 +47,12 @@ fun DetailContent(
             .padding(innerPadding),
     ) {
         when (uiState) {
-            is DetailUiState.Loading -> {
+            is UiState.Loading -> {
                 item { LoadingContent() }
             }
 
-            is DetailUiState.Success -> {
-                val userWithRepositories = (uiState as DetailUiState.Success).userWithRepositories
+            is UiState.Success -> {
+                val userWithRepositories = (uiState as UiState.Success).data
                 item {
                     UserHeader(user = userWithRepositories.user)
                     Spacer(modifier = Modifier.height(8.dp))
